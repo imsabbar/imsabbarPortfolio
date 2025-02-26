@@ -37,7 +37,7 @@
         <meta name="robots" content="index, follow">
         <meta name="language" content="English">
         <meta name="author" content="Ismail Sabbar">
-        <meta name="keywords" content="Ismail Sabbar, imsabbar, im sabbar, full stack web developer, data analyst, web scraping, automation, PHP, JavaScript, Python, WordPress, Elementor, Laravel, web development, SEO, digital solutions">
+        <meta name="keywords" content="Ismail Sabbar, إسماعيل صبار, sabbar portfolio, ismail portfolio, imsabbar profile, full stack developer, web scraping expert, automation specialist, WordPress developer, Laravel expert, SEO consultant, digital solutions, software engineer, web development services">
         
         <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
         <meta property="og:description" content="Discover the work of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Specializing in custom web development, data processing, and automation.">
@@ -62,6 +62,7 @@
 
         
         <!-- Styling links -->
+        <link rel="preload" href="assets/css/loading.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="preload" href="assets/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="stylesheet" href="assets/css/about.css">
         <link rel="stylesheet" href="assets/css/skills.css">
@@ -103,9 +104,23 @@
     
     <body>
 
+        <!-- for loading page -->
+        <section id="loading">
+            <div class="spinner">
+                <span id="loadingText">Loading</span>
+                <div class="spinner-sector spinner-sector-red"></div>
+                <div class="spinner-sector spinner-sector-blue"></div>
+                <div class="spinner-sector spinner-sector-green"></div>
+                <div class="spinner-sector spinner-sector-fourth"></div>
+            </div>
+        </section>
+
+
+
+
         <!-- The Header -->
         <header id="header">
-            <a href="file:///home/grimmjow/Desktop/MyCode/Portfolio/index.html" class="logo">
+            <a href="<?php echo proper_url(); ?>" class="logo">
                 <h2><span>Im</span>Sabbar<span>.</span></h2>
             </a>
             
@@ -154,6 +169,7 @@
 
 
 
+
         <!-- The Home section -->
         <section id="home">
             <div class="container">
@@ -167,7 +183,7 @@
                         <a class="social-link instagram" href="https://instagram.com/im_sabbar" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a class="social-link telegram" href="https://t.me/imsabbar" target="_blank"><i class="fab fa-telegram"></i></a>
                         <a class="social-link whatsapp" href="https://wa.me/212681510095" target="_blank" name="whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a class="social-link mail" href="mailto:hello@ismailsabbar.online"><i class="fa-solid fa-envelope"></i></a>
+                        <a class="social-link mail" href="mailto:hello@imsabbar.space"><i class="fa-solid fa-envelope"></i></a>
                     </div>
                 </div>
     
@@ -195,7 +211,7 @@
                             <p class="description">As a passionate freelance web developer, I create captivating web experiences. With 7 years of full-stack expertise, I'm dedicated to achieving digital excellence in every unique project journey.</p>
                             
                             <div class="actions">   
-                                <a href="mailto:elsabbars1999@gmail.com" class="hire" target="_blank">Hire Me</a>
+                                <a href="mailto:hello@imsabbar.space" class="hire" target="_blank">Hire Me</a>
                                 <a class="resume" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
                                 <h2 class="quote">Your Vision is My Expertise</h2>
                             </div>
@@ -265,6 +281,7 @@
             </div>
             
         </section>
+
 
 
 
@@ -546,6 +563,7 @@
 
         
 
+
         <!-- The Portfolio section -->
         <section id="portfolio">
             <h2 class="portfolio-title"><span>My</span> Portfolio</h2>
@@ -568,7 +586,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://janapuzzle.ma" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Janna Puzzle</h4>
                         </div>
                     </div>
@@ -581,7 +599,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://digiprod.imsabbar.online" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">digiProd</h4>
                         </div>
                     </div>
@@ -594,7 +612,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://future.imsabbar.online/" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">PSO</h4>
                         </div>
                     </div>
@@ -607,7 +625,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://snapmarketing.tech" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Marketing Agency</h4>
                         </div>
                     </div>
@@ -620,7 +638,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">web design</h4>
-                            <a href="https://projectpreview.imsabbar.online/" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Unbranded Cosmetics</h4>
                         </div>
                     </div>
@@ -635,7 +653,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
-                            <a href="#" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">R Data Analyst</h4>
                         </div>
                     </div>
@@ -647,7 +665,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
-                            <a href="#/" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Python Data Analyst</h4>
                         </div>
                     </div>
@@ -782,6 +800,7 @@
 
 
 
+
         <!-- The Contact section -->
         <section id="contact">
 
@@ -833,11 +852,11 @@
                 <div class="contactList">
                     <div class="list">
                         <div class="icon">
-                            <a href="mailto:hello@ismailsabbar.tech" target="_blank"><i class="fa-regular fa-envelope"></i></a>
+                            <a href="mailto:hello@imsabbar.space" target="_blank"><i class="fa-regular fa-envelope"></i></a>
                         </div>
                         <div class="info">
                             <h2>Mail me here:</h2>
-                            <a href="mailto:hello@imsabbar.online" target="_blank">hello@imsabbar.online</a>
+                            <a href="mailto:hello@imsabbar.online" target="_blank">hello@imsabbar.space</a>
                         </div>
                     </div>
     
@@ -870,7 +889,7 @@
 
 
         <footer>
-            <a href="#home">Made with LOVE by &nbsp;<span class="me">Sabbar Ismail</span></a>
+            <a href="#home">Made with LOVE by &nbsp;<span class="me">imsabbar</span></a>
         </footer>
 
 
@@ -880,7 +899,9 @@
         </div>
 
 
+        <!-- Scripts Files -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+        <script type="text/javascript" src="assets/js/loading.js"></script>
         <script type="text/javascript" src="assets/js/script.js"></script>
         <script type="text/javascript" src="assets/js/projFilter.js"></script>
         <script type="text/javascript" src="assets/js/scrollAnimation.js"></script>
