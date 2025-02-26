@@ -1,37 +1,81 @@
+<?php
+    // Enable error reporting only in localhost
+    if ($_SERVER['HTTP_HOST'] === 'localhost') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+
+
+    require_once __DIR__ . '/vendor/autoload.php';  // Load Composer autoload file to read .env config file
+
+    if ($_SERVER['HTTP_HOST'] === 'localhost') 
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
+
+    else 
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.production');
+
+    $dotenv->load();
+
+    require_once 'assets/includes/helpers.inc.php'; 
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>ISMAIL SABBAR - Portfolio | Full Stack Web Developer</title>
+        <title>ISMAIL SABBAR - Portfolio | Full Stack Web Developer & Data Analyst</title>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="title" content="ISMAIL SABBAR - Portfolio | Full Stack Web Developer">
+        <meta name="title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer, Data Analyst, and Web Scraper">
+        <meta name="description" content="Explore the portfolio of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Expert in web development, data analysis, and automation. Skilled in programming languages, CMS platforms like WordPress with Elementor, and web scraping solutions.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
         <meta name="robots" content="index, follow">
         <meta name="language" content="English">
+        <meta name="author" content="Ismail Sabbar">
+        <meta name="keywords" content="Ismail Sabbar, imsabbar, im sabbar, full stack web developer, data analyst, web scraping, automation, PHP, JavaScript, Python, WordPress, Elementor, Laravel, web development, SEO, digital solutions">
+        
+        <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
+        <meta property="og:description" content="Discover the work of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Specializing in custom web development, data processing, and automation.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://imsabbar.space">
+        <meta property="og:image" content="https://imsabbar.space/assets/images/imsabbarProfile.jpeg">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
+        <meta name="twitter:description" content="Explore the portfolio of Ismail Sabbar (imsabbar), a skilled Full Stack Web Developer, Data Analyst, and Web Scraper.">
+        <meta name="twitter:image" content="https://imsabbar.space/assets/images/imsabbarProfile.jpeg">
+
 
         <!-- robots meta tag-->
-        <meta href="http://localhost/Portfolio/" rel="canonical" /> 
+        <meta href="https://imsabbar.space" rel="canonical" /> 
 
         <!-- for logo-->
-        <link rel="icon" href="assets/images/myThumbnailLogo2.png">
-        <link rel="shortcut" href="assets/images/myThumbnailLogo2.png">
-        <link rel="apple-touch-icon" href="assets/images/myThumbnailLogo2.png">
+        <link rel="icon" type="image/x-icon" href="assets/images/imsabbarFav.ico">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/imsabbarFav.ico">
+        <link rel="apple-touch-icon" href="assets/images/imsabbarFav.ico">
+
 
         
         <!-- Styling links -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="preload" href="assets/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="stylesheet" href="assets/css/about.css">
         <link rel="stylesheet" href="assets/css/skills.css">
         <link rel="stylesheet" href="assets/css/portfolio.css">
         <link rel="stylesheet" href="assets/css/services.css">
         <link rel="stylesheet" href="assets/css/contact.css">
         <link rel="stylesheet" href="assets/css/scroll.css">
-        <link rel="stylesheet" href="assets/css/header.css">
+        <link rel="preload" href="assets/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="stylesheet" href="assets/css/intersectionObserverTest.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <script src="https://kit.fontawesome.com/e1b17f703d.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
 
         <!-- google fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +86,20 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    
+
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DFY74MBHG"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-8DFY74MBHG');
+        </script>
     </head>
+    
     
     <body>
 
@@ -65,7 +122,8 @@
                         </ul>        
                     </nav>
                 </div>
-<!-- 
+
+                <!-- 
                 <div class="language">
                     <div class="selected-lang">
                         English
@@ -138,7 +196,7 @@
                             
                             <div class="actions">   
                                 <a href="mailto:elsabbars1999@gmail.com" class="hire" target="_blank">Hire Me</a>
-                                <a class="resume" href="assets/files/imsabbar_En_Portfolio.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
+                                <a class="resume" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
                                 <h2 class="quote">Your Vision is My Expertise</h2>
                             </div>
                         </div>

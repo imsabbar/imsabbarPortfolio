@@ -189,11 +189,11 @@
 }
 
 .skill-progress.mongodb span::after {
-    content: "25%";
+    content: "50%";
 }
 
 .skill-progress.laravel span::after {
-    content: "25%";
+    content: "65%";
 }
 
 .skill-progress.wordpress span::after {
@@ -265,11 +265,11 @@
 }
 
 .skill-progress.mongodb span {
-    width: 25%;
+    width: 50%;
 }
 
 .skill-progress.laravel span {
-    width: 25%;
+    width: 65%;
 }
 
 .skill-progress.wordpress span {
