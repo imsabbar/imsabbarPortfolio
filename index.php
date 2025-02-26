@@ -37,7 +37,7 @@
         <meta name="robots" content="index, follow">
         <meta name="language" content="English">
         <meta name="author" content="Ismail Sabbar">
-        <meta name="keywords" content="Ismail Sabbar, إسماعيل صبار, sabbar portfolio, ismail portfolio, imsabbar profile, full stack developer, web scraping expert, automation specialist, WordPress developer, Laravel expert, SEO consultant, digital solutions, software engineer, web development services">
+        <meta name="keywords" content="Ismail Sabbar, إسماعيل صبار, sabbar portfolio, ismail portfolio, imsabbar profile, full stack developer, web scraping expert, automation specialist, WordPress developer, Laravel expert, SEO consultant, digital solutions, software engineer, web development services, full stack web developer freelancer">
         
         <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
         <meta property="og:description" content="Discover the work of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Specializing in custom web development, data processing, and automation.">
