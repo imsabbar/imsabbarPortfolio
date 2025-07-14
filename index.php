@@ -118,122 +118,127 @@
 
 
 
-<!-- The Header -->
-<header id="header">
-    <a href="<?php echo proper_url(); ?>" class="logo">
-        <h2>
-            <span class="logo-part1">Im</span>
-            <span class="logo-part2">Sabbar</span>
-            <span class="logo-dot">•</span>
-        </h2>
-    </a>
-    
-    <div class="header-menu">
-        <nav class="nav-links">
-            <ul>
-                <li><a href="#home" id="home-nav" class="active">Home</a></li>
-                <li><a href="#about" id="about-nav">About</a></li>
-                <li><a href="#skills" id="skills-nav">Skills</a></li>
-                <li><a href="#portfolio" id="portfolio-nav">Portfolio</a></li>
-                <li><a href="#services" id="services-nav">Services</a></li>
-                <li><a href="#contact" id="contact-nav">Contact</a></li>
-            </ul>        
-        </nav>
-        
-        <div class="header-controls">
-            <!-- Language Switcher -->
-            <div class="language">
-                <button class="language-toggle" aria-label="Language selector" aria-expanded="false">
-                    <span class="selected-lang">EN</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </button>
-                <ul class="language-dropdown">
-                    <li><a href="#" data-lang="en">🇬🇧 English</a></li>
-                    <li><a href="#" data-lang="fr">🇫🇷 Français</a></li>
-                    <li><a href="#" data-lang="ar">🇲🇦 العربية</a></li>
-                </ul>
-            </div>
-
-            <!-- Dark/Light Mode Toggle -->
-            <button class="theme-toggle" aria-label="Toggle dark mode">
-                <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-                <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
-        </div>
-
-        <button class="hamburger" aria-label="Menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</header>
-
-<!-- The Home section -->
-<section id="home" class="section">
-    <div class="container">
-        <div class="content-left-bar">
-            <div class="social-links">
-                <a class="social-link linkedin" href="https://www.linkedin.com/in/sabbarismail/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a class="social-link github" href="https://github.com/imsabbar" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a class="social-link youtube" href="https://www.youtube.com/@imsabbar" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a class="social-link facebook" href="https://facebook.com/imsabbar" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                <a class="social-link instagram" href="https://instagram.com/im_sabbar" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a class="social-link telegram" href="https://t.me/imsabbar" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                <a class="social-link whatsapp" href="https://wa.me/212681510095" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                <a class="social-link mail" href="mailto:hello@imsabbar.space" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <div class="content-right-bar">
-            <div class="dot-navigation">
-                <a href="#home" class="dot active" aria-label="Home" data-tooltip="Home"></a>
-                <a href="#about" class="dot" aria-label="About" data-tooltip="About"></a>
-                <a href="#skills" class="dot" aria-label="Skills" data-tooltip="Skills"></a>
-                <a href="#portfolio" class="dot" aria-label="Portfolio" data-tooltip="Portfolio"></a>
-                <a href="#services" class="dot" aria-label="Services" data-tooltip="Services"></a>
-                <a href="#contact" class="dot" aria-label="Contact" data-tooltip="Contact"></a>
-            </div>
-        </div>
-
-        <div class="hero-content">
-            <div class="hero-text">
-                <h3 class="greeting">Greetings and welcome to my PORTFOLIO!</h3>
-                <h1 class="name">Ismail Sabbar</h1>
-                <h2 class="title">Full Stack WEB Developer - Data Analyst</h2>
-                <p class="description">As a passionate freelance web developer, I create captivating web experiences. With 7 years of full-stack expertise, I'm dedicated to achieving digital excellence in every unique project journey.</p>
+        <!-- The Header -->
+        <header id="header">
+            <div class="container">
+                <a href="<?php echo proper_url(); ?>" class="logo">
+                    <h2>
+                        <span class="logo-part1">Im</span>
+                        <span class="logo-part2">Sabbar</span>
+                        <span class="logo-dot">•</span>
+                    </h2>
+                </a>
                 
-                <div class="cta-buttons">   
-                    <a href="mailto:hello@imsabbar.space" class="btn btn-primary" target="_blank">Hire Me</a>
-                    <a class="btn btn-secondary" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
+                <div class="header-menu">
+                    <nav class="nav-links">
+                        <ul>
+                            <li><a href="#home" id="home-nav" class="active">Home</a></li>
+                            <li><a href="#about" id="about-nav">About</a></li>
+                            <li><a href="#skills" id="skills-nav">Skills</a></li>
+                            <li><a href="#portfolio" id="portfolio-nav">Portfolio</a></li>
+                            <li><a href="#services" id="services-nav">Services</a></li>
+                            <li><a href="#contact" id="contact-nav">Contact</a></li>
+                        </ul>        
+                    </nav>
+                    
+                    <div class="header-controls">
+                        <!-- Language Switcher -->
+                        <div class="language">
+                            <button class="language-toggle" aria-label="Language selector" aria-expanded="false">
+                                <span class="selected-lang">EN</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                </svg>
+                            </button>
+                            <ul class="language-dropdown">
+                                <li><a href="#" data-lang="en">🇬🇧 English</a></li>
+                                <li><a href="#" data-lang="fr">🇫🇷 Français</a></li>
+                                <li><a href="#" data-lang="ar">🇲🇦 العربية</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Dark/Light Mode Toggle -->
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                            <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button class="hamburger" aria-label="Menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
-                <p class="tagline">Your Vision is My Expertise</p>
+            </div>
+        </header>
+
+        <!-- The Home section -->
+        <section id="home" class="section">
+            <div class="content-left-bar">
+                <div class="social-links">
+                    <a class="social-link linkedin" href="https://www.linkedin.com/in/sabbarismail/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a class="social-link github" href="https://github.com/imsabbar" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a class="social-link youtube" href="https://www.youtube.com/@imsabbar" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a class="social-link facebook" href="https://facebook.com/imsabbar" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a class="social-link instagram" href="https://instagram.com/im_sabbar" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a class="social-link telegram" href="https://t.me/imsabbar" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a class="social-link whatsapp" href="https://wa.me/212681510095" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a class="social-link mail" href="mailto:hello@imsabbar.space" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
             </div>
 
-            <div class="hero-image">
-                <img src="assets/images/myprofile.jpeg" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
-            </div>
-        </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h3 class="greeting">Greetings and welcome to my PORTFOLIO!</h3>
+                        <h1 class="name">Ismail Sabbar</h1>
+                        <h2 class="title">Full Stack WEB Developer - Data Analyst</h2>
+                        <p class="description">As a passionate freelance web developer, I create captivating web experiences. With 7 years of full-stack expertise, I'm dedicated to achieving digital excellence in every unique project journey.</p>
+                        
+                        <div class="cta-buttons">   
+                            <a href="mailto:hello@imsabbar.space" class="btn btn-primary" target="_blank">Hire Me</a>
+                            <a class="btn btn-secondary" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
+                        </div>
+                        <p class="tagline">Your Vision is My Expertise</p>
+                    </div>
 
-        <div class="scroll-down">
-            <a href="#about" class="scroll-down-btn" aria-label="Scroll to next section"><i class="fa-solid fa-chevron-down"></i></a>
-        </div>
-    </div>
-</section>
+                    <div class="hero-image">
+                        <img src="assets/images/myprofile.jpeg" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
+                    </div>
+                </div>
+
+                <div class="scroll-down">
+                    <a href="#about" class="scroll-down-btn" aria-label="Scroll to next section"><i class="fa-solid fa-chevron-down"></i></a>
+                </div>
+            </div>
+
+            <div class="content-right-bar">
+                <div class="dot-navigation">
+                    <a href="#home" class="dot active" aria-label="Home" data-tooltip="Home"></a>
+                    <a href="#about" class="dot" aria-label="About" data-tooltip="About"></a>
+                    <a href="#skills" class="dot" aria-label="Skills" data-tooltip="Skills"></a>
+                    <a href="#portfolio" class="dot" aria-label="Portfolio" data-tooltip="Portfolio"></a>
+                    <a href="#services" class="dot" aria-label="Services" data-tooltip="Services"></a>
+                    <a href="#contact" class="dot" aria-label="Contact" data-tooltip="Contact"></a>
+                </div>
+            </div>
+        </section>
+
+
+        
 
 
         <!-- The About section -->
