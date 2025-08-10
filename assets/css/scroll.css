@@ -1,29 +1,48 @@
 /* This is back-to-top arrow*/
 #progress {
     position: fixed;
-    bottom: 15px;
-    right: 15px;
+    bottom: 20px;
+    right: 20px;
     height: 48px;
     width: 48px;
     display: none;
     place-items: center;
     border-radius: 50%;
-    box-shadow: 0 7px 30px rgba(121, 106, 153, 0.2);
+    box-shadow: 0 4px 16px rgba(var(--primary-color-rgb), 0.2);
     cursor: pointer;
-    transition: 300ms;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
 }
 
 
 #progress-value {
-    display: block ;
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
-    background-color: #feefe5;
-    border-radius: 50%;
     display: grid;
     place-items: center;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    background: linear-gradient(135deg, var(--bg-color), var(--bg-secondary));
+    border-radius: 50%;
     font-size: 17px;
-    color: #47b69e;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+#progress:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(var(--primary-color-rgb), 0.3);
+}
+
+#progress:hover #progress-value {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    transform: scale(1.1);
+}
+
+#progress:active {
+    transform: translateY(0) scale(1.02);
+    transition: all 0.1s ease;
 }
 
 

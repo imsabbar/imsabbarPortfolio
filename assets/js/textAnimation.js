@@ -4,14 +4,14 @@ const myGreetingElement = document.querySelector('.greeting');
 const myGreetingText = myGreetingElement.textContent;
 const greetingSplitText = myGreetingText.split("");
 
-// get Name, Field and Quote
+// get Name, Field and Tagline
 const myNameElement = document.querySelector('.name');
 
-const myFieldElement = document.querySelector('.field');
+const myFieldElement = document.querySelector('.title');
 const myFieldText = myFieldElement.textContent;
 const fieldSplitText = myFieldText.split("");
 
-const myQuoteElement = document.querySelector('.quote');
+const myQuoteElement = document.querySelector('.tagline');
 const myQuoteText = myQuoteElement.textContent;
 const quoteSplitText = myQuoteText.split("");
 
@@ -34,7 +34,7 @@ for(let i=0 ; i < fieldSplitText.length ; i++)
 
 
 for(let i=0 ; i < quoteSplitText.length ; i++) 
-  myQuoteElement.innerHTML += "<span='animate'>" +quoteSplitText[i]+ "</span=>";
+  myQuoteElement.innerHTML += "<span class='animate'>" +quoteSplitText[i]+ "</span>";
 
 
 
@@ -45,9 +45,9 @@ let timer = setInterval(onTick, 50);
 
 
 function onTick() {
-  const spanGreeting = myGreetingElement.querySelectorAll('.greeting span')[charGreeting];
-  const spanField = myFieldElement.querySelectorAll('.field span')[charField];
-  const spanQuote = myQuoteElement.querySelectorAll('.quote span')[charQuote];
+  const spanGreeting = myGreetingElement.querySelectorAll('span')[charGreeting];
+  const spanField = myFieldElement.querySelectorAll('span')[charField];
+  const spanQuote = myQuoteElement.querySelectorAll('span')[charQuote];
 
 
   if (spanGreeting) {

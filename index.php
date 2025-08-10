@@ -103,6 +103,17 @@
     
     
     <body>
+        <!-- Background Bubbles -->
+        <div class="page-bg-bubbles">
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+            <div class="bg-bubble"></div>
+        </div>
 
         <!-- for loading page -->
         <section id="loading">
@@ -123,9 +134,8 @@
             <div class="container">
                 <a href="<?php echo proper_url(); ?>" class="logo">
                     <h2>
-                        <span class="logo-part1">Im</span>
-                        <span class="logo-part2">Sabbar</span>
-                        <span class="logo-dot">•</span>
+                        <span>Im</span>
+                        <span>Sabbar</span>
                     </h2>
                 </a>
                 
@@ -138,7 +148,43 @@
                             <li><a href="#portfolio" id="portfolio-nav">Portfolio</a></li>
                             <li><a href="#services" id="services-nav">Services</a></li>
                             <li><a href="#contact" id="contact-nav">Contact</a></li>
-                        </ul>        
+                        </ul>
+                        
+                        <!-- Mobile Controls - Added for mobile menu -->
+                        <div class="mobile-controls">
+                            <!-- Language Switcher for Mobile -->
+                            <div class="language">
+                                <button class="language-toggle" aria-label="Language selector" aria-expanded="false">
+                                    <span class="selected-lang">EN</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                    </svg>
+                                </button>
+                                <ul class="language-dropdown">
+                                    <li><a href="#" data-lang="en">🇬🇧 English</a></li>
+                                    <li><a href="#" data-lang="fr">🇫🇷 Français</a></li>
+                                    <li><a href="#" data-lang="ar">🇲🇦 العربية</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Theme Toggle for Mobile -->
+                            <button class="theme-toggle" aria-label="Toggle dark mode">
+                                <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                                <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </nav>
                     
                     <div class="header-controls">
@@ -185,6 +231,9 @@
             </div>
         </header>
 
+        <!-- Navigation Overlay -->
+        <div class="nav-overlay"></div>
+
         <!-- The Home section -->
         <section id="home" class="section">
             <div class="content-left-bar">
@@ -216,6 +265,11 @@
                     </div>
 
                     <div class="hero-image">
+                        <div class="floating-bubble"></div>
+                        <div class="floating-bubble"></div>
+                        <div class="floating-bubble"></div>
+                        <div class="floating-bubble"></div>
+                        <div class="floating-bubble"></div>
                         <img src="assets/images/myprofile.jpeg" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
                     </div>
                 </div>
@@ -281,7 +335,9 @@
                 </div>
                 
                 <div class="left">
-                    <img src="assets/images/mypic0000.png" alt="my profile picture" class="myProfile">
+                    <div class="profile-wrapper">
+                        <img src="assets/images/mypic0000.png" alt="my profile picture" class="myProfile">
+                    </div>
                 </div>
 
             </div>
@@ -297,271 +353,293 @@
             <p class="skills-text">Empowering Your Digital Journey: A Skillful Toolkit Customized to Fit Your Project's Demands and Aspirations</p>
 
             <div class="technical-skills">
-
-                <div class="left">
-
-                    <div class="container">
-    
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/html5.png" alt="HTML 5 Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">HTML5</p>     
-                                </div>
-    
-                                <div class="skill-progress html5"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/css3.png" alt="CSS3 Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">CSS3</p>     
-                                </div>
-    
-                                <div class="skill-progress css3"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/js.png" alt="JavaScript Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">JavaScript</p>     
-                                </div>
-    
-                                <div class="skill-progress js"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/jquery.png" alt="JQuery Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">JQuery</p>     
-                                </div>
-    
-                                <div class="skill-progress jquery"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/ajax.png" alt="Ajax Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">Ajax</p>     
-                                </div>
-    
-                                <div class="skill-progress ajax"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/php.png" alt="PHP Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">PHP</p>     
-                                </div>
-    
-                                <div class="skill-progress php"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/mysql.png" alt="MySQL Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">MySQL</p>     
-                                </div>
-    
-                                <div class="skill-progress mysql"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/mongo.png" alt="mongodb Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">MongoDB</p>     
-                                </div>
-    
-                                <div class="skill-progress mongodb"><span></span></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="icon">
-                                <img src="./assets/images/laravel logo.jpg" alt="laravel Logo">
-                            </div>
-    
-                            <div class="info">
-                                <div class="skill-info">
-                                    <p class="subject">Laravel</p>     
-                                </div>
-    
-                                <div class="skill-progress laravel"><span></span></div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Frontend Technologies -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Frontend Technologies</h3>
                 </div>
-    
-
-
-
-                <div class="right">
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/wordpress.png" alt="Wordpress Logo">
-                        </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Wordpress</p>     
-                            </div>
-
-                            <div class="skill-progress wordpress"><span></span></div>
-                        </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/html5.png" alt="HTML 5 Logo">
                     </div>
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/woocommerce.png" alt="woocomerce Logo">
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">HTML5</p>     
                         </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Woocomerce</p>     
-                            </div>
-
-                            <div class="skill-progress woocomerce"><span></span></div>
-                        </div>
+                        <div class="skill-progress html5"><span></span></div>
                     </div>
+                    <div class="skill-percentage">95%</div>
+                </div>
 
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/git.png" alt="GIT Logo">
-                        </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">GIT</p>     
-                            </div>
-
-                            <div class="skill-progress git"><span></span></div>
-                        </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/css3.png" alt="CSS3 Logo">
                     </div>
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/github.png" alt="Github Logo">
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">CSS3</p>     
                         </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Github</p>     
-                            </div>
-
-                            <div class="skill-progress github"><span></span></div>
-                        </div>
+                        <div class="skill-progress css3"><span></span></div>
                     </div>
+                    <div class="skill-percentage">90%</div>
+                </div>
 
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/react logo.png" alt="react Logo">
-                        </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">React</p>     
-                            </div>
-
-                            <div class="skill-progress react"><span></span></div>
-                        </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/js.png" alt="JavaScript Logo">
                     </div>
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/python.png" alt="Python Logo" >
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">JavaScript</p>     
                         </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Python</p>     
-                            </div>
-
-                            <div class="skill-progress python"><span></span></div>
-                        </div>
+                        <div class="skill-progress js"><span></span></div>
                     </div>
+                    <div class="skill-percentage">100%</div>
+                </div>
 
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/java-logo-1.png" alt="Java Logo">
-                        </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Java POO</p>     
-                            </div>
-
-                            <div class="skill-progress java"><span></span></div>
-                        </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/jquery.png" alt="JQuery Logo">
                     </div>
-
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/R.png" alt="R language Logo">
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">jQuery</p>     
                         </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">R</p>     
-                            </div>
-
-                            <div class="skill-progress R"><span></span></div>
-                        </div>
+                        <div class="skill-progress jquery"><span></span></div>
                     </div>
+                    <div class="skill-percentage">100%</div>
+                </div>
 
-
-                    <div class="skill">
-                        <div class="icon">
-                            <img src="./assets/images/jupyter logo.png" alt="jupyter notebook tool Logo">
-                        </div>
-
-                        <div class="info">
-                            <div class="skill-info">
-                                <p class="subject">Jupyter Notebook</p>     
-                            </div>
-
-                            <div class="skill-progress jupyter"><span></span></div>
-                        </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/react logo.png" alt="React Logo">
                     </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">React</p>     
+                        </div>
+                        <div class="skill-progress react"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">75%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/ajax.png" alt="Ajax Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Ajax</p>     
+                        </div>
+                        <div class="skill-progress ajax"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">75%</div>
+                </div>
+
+                <!-- Backend Technologies -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Backend Technologies</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/php.png" alt="PHP Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">PHP</p>     
+                        </div>
+                        <div class="skill-progress php"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">88%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/laravel logo.jpg" alt="Laravel Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Laravel</p>     
+                        </div>
+                        <div class="skill-progress laravel"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">82%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/codeigniter-logo.webp" alt="CodeIgniter Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">CodeIgniter</p>     
+                        </div>
+                        <div class="skill-progress codeigniter"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">100%</div>
+                </div>
+
+                <!-- Database Technologies -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Database Technologies</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/mysql.png" alt="MySQL Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">MySQL</p>     
+                        </div>
+                        <div class="skill-progress mysql"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">100%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/mongo.png" alt="MongoDB Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">MongoDB</p>     
+                        </div>
+                        <div class="skill-progress mongodb"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">78%</div>
+                </div>
+
+                <!-- CMS & Tools -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">CMS & Tools</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/wordpress.png" alt="WordPress Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">WordPress</p>     
+                        </div>
+                        <div class="skill-progress wordpress"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">92%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/woocommerce.png" alt="WooCommerce Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">WooCommerce</p>     
+                        </div>
+                        <div class="skill-progress woocomerce"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">87%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/perfex-logo.webp" alt="Perfex CRM Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Perfex CRM</p>     
+                        </div>
+                        <div class="skill-progress perfex"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">85%</div>
+                </div>
+
+                <!-- Version Control -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Version Control</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/git.png" alt="Git Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Git</p>     
+                        </div>
+                        <div class="skill-progress git"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">90%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/github.png" alt="GitHub Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">GitHub</p>     
+                        </div>
+                        <div class="skill-progress github"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">88%</div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Programming Languages</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/python.png" alt="Python Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Python</p>     
+                        </div>
+                        <div class="skill-progress python"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">70%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/java-logo-1.png" alt="Java Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Java</p>     
+                        </div>
+                        <div class="skill-progress java"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">72%</div>
+                </div>
+
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/R.png" alt="R Language Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">R</p>     
+                        </div>
+                        <div class="skill-progress R"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">65%</div>
+                </div>
+
+                <!-- Data Analysis Tools -->
+                <div class="skill-category-header">
+                    <h3 class="category-title">Data Analysis Tools</h3>
+                </div>
+                <div class="skill">
+                    <div class="icon">
+                        <img src="./assets/images/jupyter logo.png" alt="Jupyter Notebook Logo">
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">Jupyter Notebook</p>     
+                        </div>
+                        <div class="skill-progress jupyter"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">68%</div>
+                </div>
                 </div>
             </div>
 
@@ -847,7 +925,7 @@
                             </div>
                         </div>
     
-                        <div class="inputBox btn">
+                        <div class="inputBox contact-btn">
                             <button id="contactbtn" type="submit" name="submit" >Send Message</button>
                         </div>
                     </form>
@@ -895,7 +973,14 @@
 
 
         <footer>
-            <a href="#home">Made with LOVE by &nbsp;<span class="me">imsabbar</span></a>
+            <div class="footer-content">
+                <div class="footer-left">
+                    Made with <span class="heart">❤️</span> by <span class="me">imsabbar</span>
+                </div>
+                <div class="footer-right">
+                    &copy; <?php echo date('Y'); ?> Ismail Sabbar. All rights reserved.
+                </div>
+            </div>
         </footer>
 
 
@@ -913,6 +998,7 @@
         <script type="text/javascript" src="assets/js/scrollAnimation.js"></script>
         <script type="text/javascript" src="assets/js/textAnimation.js"></script>
         <script type="text/javascript" src="assets/js/aboutExperience.js"></script>
+        <script type="text/javascript" src="assets/js/skillsAnimation.js"></script>
         <script type="text/javascript" src="assets/js/intersectionObserverTest.js"></script>
 
     </body>

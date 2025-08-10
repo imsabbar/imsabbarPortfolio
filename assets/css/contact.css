@@ -1,46 +1,115 @@
 
 
 #contact {
-    padding: 40px 0 170px;
-    margin: 100px auto 0;
-    height: 100%;
-    max-width: 900px;
+    min-height: 100vh;
+    padding: 100px 0 180px 0;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+    position: relative;
+    overflow: hidden;
 }
+
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
 
 
 #contact .contact-title {
-    color: #c9c9c9;
-    font-size: 37px;
-    font-weight: 600;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: var(--font-special);
+    background: linear-gradient(to right, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
 }
 
 .contact-title span {
-    color: #00A78E;
+    background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #contact .contact-text {
-    color: #525363;
-    font-size: 18px;
-    margin: 25px auto 0;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin: 1.5rem auto 4rem;
     text-align: center;
-    font-family: 'Ubuntu',  sans-serif;
-    line-height: 27px;
-    max-width: 650px;
-    
+    font-family: var(--font-body);
+    line-height: 1.6;
+    max-width: 700px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
 }
 
 
 #contact .container {
-    margin-top: 60px;   
+    margin-top: 2rem;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    background-color: #00A78E;
-    padding: 90px;
-    border-radius: 9px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    padding: 2.5rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.03),
+        0 2px 4px rgba(0, 0, 0, 0.02),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    position: relative;
+    z-index: 1;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+}
+
+#contact .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 30% 20%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 60%);
+    border-radius: 32px;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+#contact .container:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.04),
+        0 3px 6px rgba(0, 0, 0, 0.03),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+#contact .container:hover::before {
+    opacity: 1;
 }
 
 .container .formdiv{
@@ -78,30 +147,41 @@
 
 form .inputBox input , form .inputBox textarea{
     position: relative;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     width: 100%;
-    height: 50px;
+    height: 58px;
     outline: none;
-    border: none;
-    color: #000;
-    letter-spacing: 1px;
-    font-size: 15px;
+    color: var(--text-color);
+    letter-spacing: 0.3px;
+    font-size: 16px;
     font-weight: 500;
+    font-family: var(--font-body);
     resize: none;
-    border-radius: 2px; 
-    padding: 0 22px;
-    margin: 6px;
-    transition: all 300ms;
+    border-radius: 12px;
+    padding: 0 28px;
+    margin: 12px 8px;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 6px 15px rgba(0, 0, 0, 0.06),
+        0 3px 8px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 1px 0 rgba(255, 255, 255, 0.12) inset;
 }
 
 form .inputBox textarea{ 
-    margin-top: 16px;
-    height: 240px;
-    padding: 18px 22px;
+    margin-top: 18px;
+    height: 260px;
+    padding: 22px 28px;
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.6;
 }
 
 
-form .inputBox.btn {
+form .inputBox.contact-btn {
     display: flex;
     justify-content: right;
     align-items: center;
@@ -109,44 +189,135 @@ form .inputBox.btn {
     margin-right: 3px; 
 }
 
-form .inputBox.btn button{
-    padding: 13px 26px;
-    border: 1px solid #fff;
-    color: #fff;
+form .inputBox.contact-btn button{
+    padding: 12px 28px;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.3);
+    color: #ffffff;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 4px;
-    background-color: transparent;
-    transition: 300ms ease;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    border-radius: 8px;
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%, 
+        var(--primary-dark) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 4px 8px rgba(var(--primary-color-rgb), 0.15),
+        0 2px 4px rgba(var(--primary-color-rgb), 0.10),
+        0 1px 2px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 1px 0 rgba(255, 255, 255, 0.15) inset;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    min-width: 140px;
 }
 
-form .inputBox.btn button:hover{
-    background-color: #000;
-    border: 1px solid #000;
+form .inputBox.contact-btn button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-form .inputBox.btn button:active{
-    background-color: transparent;
-    color: #00A78E;
-    border: 1px solid #00A78E;
+form .inputBox.contact-btn button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        var(--primary-light) 0%, 
+        var(--primary-color) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: 8px;
+    z-index: -1;
+}
+
+form .inputBox.contact-btn button:hover{
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 6px 12px rgba(var(--primary-color-rgb), 0.20),
+        0 3px 6px rgba(var(--primary-color-rgb), 0.15),
+        0 2px 3px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+        0 1px 0 rgba(255, 255, 255, 0.20) inset;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.4);
+}
+
+form .inputBox.contact-btn button:hover::before {
+    left: 100%;
+}
+
+form .inputBox.contact-btn button:hover::after {
+    opacity: 1;
+}
+
+form .inputBox.contact-btn button:active{
+    transform: translateY(-2px) scale(1.01);
+    transition: all 0.1s ease;
+}
+
+form .inputBox.contact-btn button:focus {
+    outline: none;
+    box-shadow: 
+        0 12px 24px rgba(var(--primary-color-rgb), 0.25),
+        0 6px 12px rgba(var(--primary-color-rgb), 0.15),
+        0 3px 6px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
 }
 
 
 
-.inputBox input:focus,
-.inputBox textarea:focus,
-.inputBox input:valid, 
-.inputBox textarea:valid {
-    background-color: #fffdf8;
+form .inputBox input:focus,
+form .inputBox textarea:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(var(--primary-color-rgb), 0.5);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 0 0 4px rgba(var(--primary-color-rgb), 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 2px 0 rgba(255, 255, 255, 0.2) inset;
+    transform: translateY(-2px) scale(1.02);
 }
 
+form .inputBox input:valid, 
+form .inputBox textarea:valid {
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(76, 175, 80, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
 
 ::placeholder {
-    color:#74768a;
+    color: var(--text-lighter);
     font-size: 14px;
-    font-weight: 500;
-    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-family: var(--font-body);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+form .inputBox input:focus::placeholder,
+form .inputBox textarea:focus::placeholder {
+    opacity: 0.4;
+    transform: translateY(-2px);
 }
 
 
@@ -157,57 +328,128 @@ form .inputBox.btn button:active{
 .contactList {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 6px;
+    gap: 24px;
+    margin-top: 1.5rem;
     text-align: center;
 }
 
-
 .list {
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
-    align-items: center ;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 185px;
-    height: 180px;
-    border-radius: 8px;
+    width: 220px;
+    height: 220px;
+    border-radius: 28px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.05),
+        0 4px 8px rgba(0, 0, 0, 0.03),
+        0 2px 4px rgba(0, 0, 0, 0.02),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    position: relative;
+    overflow: hidden;
 }
 
+.list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 30% 20%, rgba(var(--primary-color-rgb), 0.08) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    border-radius: 28px;
+}
+
+.list:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.08),
+        0 6px 12px rgba(0, 0, 0, 0.05),
+        0 3px 6px rgba(0, 0, 0, 0.03),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 1px 0 rgba(255, 255, 255, 0.20) inset;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.list:hover::before {
+    opacity: 1;
+}
 
 .list .icon a {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 52px;
-    width: 52px;
-    color: #fff;
-    font-size: 22px;
+    height: 68px;
+    width: 68px;
+    color: #ffffff;
+    font-size: 26px;
     border-radius: 50%;
-    background-color: #00A78E;
-    transition: 300ms;
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%, 
+        var(--primary-dark) 100%);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 8px 20px rgba(var(--primary-color-rgb), 0.3),
+        0 4px 10px rgba(var(--primary-color-rgb), 0.2),
+        0 2px 5px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-decoration: none;
 }
 
+.list:hover .icon a {
+    transform: scale(1.15) rotate(8deg);
+    box-shadow: 
+        0 12px 30px rgba(var(--primary-color-rgb), 0.4),
+        0 6px 15px rgba(var(--primary-color-rgb), 0.25),
+        0 3px 8px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    background: linear-gradient(135deg, 
+        var(--primary-light) 0%, 
+        var(--primary-color) 100%);
+}
 
 .list .info h2 {
-    color: #525363;
-    font-size: 16px;
-    font-weight: 500;
-    margin: 25px 0 7px;
-    font-family: 'Ubuntu', sans-serif;
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    font-family: var(--font-special);
+    position: relative;
+    z-index: 2;
 }
 
 .list .info a {
     font-size: 15px;
     text-decoration: none;
-    color: #525363;
-    transition: 250ms;
-    font-weight: 500;
-    font-family: 'Ubuntu', sans-serif;
+    color: var(--text-color-light);
+    transition: all 0.3s ease;
+    font-weight: 400;
+    font-family: var(--font-primary);
+    position: relative;
+    z-index: 2;
 }
 
 .list .info a:hover {
-    color: #00A78E;
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 
@@ -227,20 +469,44 @@ form .inputBox.btn button:active{
 
 
 .popup {
-    background: #fff;
-    width: 440px;
-    height: 320px;
-    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(50px) saturate(200%);
+    -webkit-backdrop-filter: blur(50px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 460px;
+    height: 340px;
+    border-radius: 32px;
     position: fixed;
     top: 10px;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
     visibility: hidden;
-    padding: 0 30px;
-    box-shadow: 0 7px 30px rgba(52, 31, 97, 0.3);
-    transition: transform 200ms, top 200ms;
-    z-index: 100;
+    padding: 0 35px;
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.25),
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 1px 0 rgba(255, 255, 255, 0.25) inset;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.popup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 30% 20%, rgba(var(--primary-color-rgb), 0.06) 0%, transparent 50%);
+    border-radius: 32px;
+    pointer-events: none;
+    z-index: -1;
 }
 
 .open-popup {
@@ -249,53 +515,120 @@ form .inputBox.btn button:active{
     transform: translate(-50%, -50%) scale(1);
 }
 
-
-
-
 .popup img {
     height: 100px;
     border-radius: 50%;
     margin-top: -50px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .popup h2 {
-    font-size: 35px;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
     margin-top: 25px;
-    color: #00A78E;
-    font-family: 'Ubuntu', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: var(--font-special);
+    font-weight: 700;
     cursor: default;
 }
 
 .popup p {
-    color: #3d3d3d;
+    color: var(--text-color);
     font-size: 15px;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 600;
-    letter-spacing: 1px;
-    line-height: 24px;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
     margin-top: 20px;
     cursor: default;
 }
 
 .popup button {
     width: 100%;
-    padding: 0 10px;
-    height: 50px;
-    margin-top: 30px;
-    border: none;
+    padding: 16px 24px;
+    height: 54px;
+    margin-top: 35px;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.3);
     outline: none;
-    border-radius: 4px;
-    color: white;
-    font-size: 19px;
-    font-weight: 500;
-    background-color: #21DACB;
+    border-radius: 18px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%, 
+        var(--primary-dark) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     cursor: pointer;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    transition: 300ms ease;
+    box-shadow: 
+        0 12px 24px rgba(var(--primary-color-rgb), 0.25),
+        0 6px 12px rgba(var(--primary-color-rgb), 0.15),
+        0 3px 6px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+        0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.popup button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent);
+    transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.popup button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        var(--primary-light) 0%, 
+        var(--primary-color) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: 18px;
+    z-index: -1;
 }
 
 .popup button:hover {
-    background-color: #05ccbb;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 18px 36px rgba(var(--primary-color-rgb), 0.35),
+        0 9px 18px rgba(var(--primary-color-rgb), 0.2),
+        0 4px 9px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.4);
+}
+
+.popup button:hover::before {
+    left: 100%;
+}
+
+.popup button:hover::after {
+    opacity: 1;
+}
+
+.popup button:active {
+    transform: translateY(-1px) scale(1.01);
+    transition: all 0.1s ease;
 }
 
 
@@ -305,84 +638,66 @@ form .inputBox.btn button:active{
 
 
 
-@media screen and (max-width: 1450px) {
-
-    #contact .contact-title {
-        font-size: 34px;
+@media screen and (max-width: 1200px) {
+    #contact {
+        padding: 80px 0 160px 0;
+        max-width: 1000px;
     }
 
-    #contact .contact-text {
-        font-size: 17px;
-        margin: 18px auto 0;
-        line-height: 25px;
-        max-width: 600px;
+    #contact .container {
+        padding: 2.5rem;
+        border-radius: 20px;
     }
-
 
     .container .formdiv {
-        margin-left: 25px;
-        max-width: 560px;
+        margin-left: 1.5rem;
+        max-width: 520px;
     }
 
-    .formdiv form .divBox:last-child {
-        margin-top: 15px;
+    form .inputBox input, form .inputBox textarea {
+        height: 52px;
+        font-size: 15px;
+        padding: 0 22px;
+        margin: 8px 6px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.18);
     }
 
-
-    form .inputBox input , form .inputBox textarea{
-        height: 50px;
-        font-size: 14px;
-        padding: 0 20px;
-        margin: 8px;
+    form .inputBox textarea {
+        height: 220px;
+        padding: 18px 22px;
+        min-height: 120px;
     }
 
-    form .inputBox textarea{
-        height: 215px;
-        padding: 16px 20px;
+    form .inputBox.btn button {
+        padding: 12px 24px;
+        font-size: 15px;
+        border-radius: 10px;
     }
-
-
-    form .inputBox.btn {
-        margin-top: 30px;
-    }
-
-    form .inputBox.btn button{
-        padding: 12px 20px;
-        font-size: 14px;
-    }
-
-    ::placeholder {
-        font-size: 14px;
-    }
-
-
 
     .contactList {
-        gap: 15px;
-        margin-top: 10px;
+        gap: 16px;
     }
-
 
     .list {
-        width: 190px;
-        height: 165px;
+        width: 180px;
+        height: 180px;
+        border-radius: 16px;
     }
-
 
     .list .icon a {
-        height: 50px;
-        width: 50px;
-        font-size: 23px;
+        height: 55px;
+        width: 55px;
+        font-size: 22px;
     }
 
-
     .list .info h2 {
-        font-size: 17px;
-        margin: 15px 0 10px;
+        font-size: 16px;
+        margin: 18px 0 6px;
     }
 
     .list .info a {
-        font-size: 15px;
+        font-size: 14px;
     }
 }
 
@@ -412,252 +727,466 @@ form .inputBox.btn button:active{
 
 
 
-@media screen and  (max-width: 1000px)  {
-    /* .container .imgBox{
-        display: none;
-    } */
+@media screen and (max-width: 1000px) {
+    #contact {
+        padding: 70px 0 150px 0;
+    }
 
-    .container .imgBox img{
-        width: 118%;
+    #contact .container {
+        padding: 2.2rem;
+        border-radius: 18px;
+    }
+
+    .container .imgBox {
+        display: none;
+    }
+
+    .container .formdiv {
+        margin-left: 0;
+        width: 100%;
     }
 
     form .inputBox.btn button {
         font-size: 14px;
-        padding: 10px 18px;
+        padding: 12px 20px;
+        border-radius: 10px;
     }
 }
 
 
 
-@media screen and  (max-width: 850px)  {
+/* Tablet Styles */
+@media screen and (max-width: 1024px) {
+    #contact .container {
+        max-width: 95%;
+        padding: 2rem;
+    }
+    
+    .container .formdiv {
+        margin-left: 0;
+    }
+}
 
-    #contact{
-        margin-top: 0;
-        min-height: 620px;
-        background-color: transparent;
-        box-shadow: none;
+@media screen and (max-width: 768px) {
+    #contact {
+        padding: 50px 0 140px 0;
     }
 
     #contact .container {
-        width: 60%;
-    }
-    
-    #contact:before{
-        background-color: transparent;
+        flex-direction: column;
+        padding: 1.8rem 1.2rem;
+        border-radius: 20px;
+        max-width: 95%;
+        margin: 1.2rem auto 0;
+        gap: 2.5rem;
     }
 
-    .container .imgBox{
+    .container .imgBox {
         display: none;
     }
 
-    .container .formdiv{
-        width: 98%;
-    }
-    
-    .container .formdiv form{
+    .container .formdiv {
         width: 100%;
-        margin: 0 auto;
-    }
-    
-    
-    .container .formdiv form h2{
-        font-size: 28px;
-    }
-    
-    
-    
-    form .inputBox input , form .inputBox textarea{
-        font-size: 14px;
-    }
-    
-    
-    form .inputBox span{
-        font-size: 14px;
-    }
-    
-    
-    .inputBox input:focus ~ span,
-    .inputBox textarea:focus ~ span,
-    .inputBox textarea:valid ~ span,
-    .inputBox input:valid ~ span {
-        transform: translateY(-30px);
-        font-size: 12px;
+        margin: 0;
+        max-width: 100%;
+        order: 1;
+        padding: 0 0.5rem;
     }
 
-}
-
-
-
-
-@media screen and  (max-width: 720px)  {
-
-    #contact{
-        min-height: 600px;
-    }
-    
-    .container .formdiv form {
-        padding: 0 0 0 18%;
+    .contactList {
+        order: 2;
+        margin-top: 0;
     }
 
-    .container .formdiv form h2{
-        font-size: 26px;
-    }
-    
-    
-    form .inputBox.btn button{
-        padding: 11px 17px;
-        font-size: 13px;
-        width: 80%;
+    .contact-title {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
     }
 
-    form .inputBox span {
-        font-size: 13px;
-        left: 18%;
+    .contact-text {
+        font-size: 15px;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+        padding: 0 0.5rem;
     }
 
-
-}
-
-
-@media screen and  (max-width: 600px)  {
-
-    #contact .container {
-        height: 540px;
+    .divBox {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
-    #contact .container {
-        width: 80%;
-    }
-
-    .container .formdiv form h2{
-        font-size: 25px;
-    }
-
-    form .inputBox span {
-        font-size: 13px;
-    }
-}
-
-
-@media screen and (max-width: 540px ) {
-
-    #contact .container {
-        width: 85%;
-    }
-    
-    .container .formdiv form{
-        padding: 0 0 0 15%;
-    }
-    
-    
-    .container .formdiv form h2{
-        font-size: 23px;
-    }
-
-    form .inputBox input , form .inputBox textarea {
-        width: 85%;
-    }
-
-    form .inputBox span{
-        left: 15%;
-        font-size: 12px;
-    }
-    
-    
-    form .inputBox.btn button{
-        padding: 10px 16px;
-        font-size: 13px;
-        width: 85%;
-    }
-
-}
-
-
-
-
-@media screen and (max-width: 425px) {
-
-    #contact {
-        min-height: 540px;
-    }
-
-    #contact .container {
-        width: 93%;
-        height: 510px;
-    }
-
-    .container .formdiv{
+    form .inputBox {
         width: 100%;
+        margin-bottom: 0.8rem;
     }
 
-    .container .formdiv form{
-        padding: 0 0 0 11%;
+    form .inputBox input, form .inputBox textarea {
+        font-size: 15px;
+        padding: 0 22px;
+        margin: 6px 0;
+        height: 54px;
+        border-radius: 12px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid rgba(255, 255, 255, 0.18);
     }
 
-    .container .formdiv form h2{
-        font-size: 21px;
+    form .inputBox textarea {
+        height: 180px;
+        padding: 18px 22px;
+        resize: vertical;
+        min-height: 130px;
     }
 
-
-    .formdiv form .inputBox:not(:last-child){
-        margin-bottom: 50px;
+    form .inputBox.contact-btn {
+        justify-content: center;
+        margin-top: 1.5rem;
+        margin-right: 0;
     }
-    
-    form .inputBox input , form .inputBox textarea{
+
+    form .inputBox.contact-btn button {
+        padding: 12px 28px;
         font-size: 14px;
-        width: 88%;
-        padding-bottom: 6px;
+        min-width: 130px;
+        border-radius: 10px;
     }
 
-    form .inputBox textarea{
-        height: 87px;
+    .contactList {
+        gap: 1.2rem;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
-    form .inputBox.btn button{
-        width: 88%;
+    .list {
+        width: calc(50% - 0.6rem);
+        min-width: 160px;
+        max-width: 180px;
+        height: 160px;
+        border-radius: 18px;
+        flex: 1;
     }
 
-    form .inputBox span{
-        left: 11%;
+    .list .icon a {
+        height: 52px;
+        width: 52px;
+        font-size: 20px;
     }
 
-    .inputBox input:focus ~ span,
-    .inputBox textarea:focus ~ span,
-    .inputBox textarea:valid ~ span,
-    .inputBox input:valid ~ span {
-        transform: translateY(-18px);
+    .list .info h2 {
+        font-size: 15px;
+        margin: 12px 0 6px;
+        font-weight: 600;
     }
 
+    .list .info a {
+        font-size: 13px;
+        line-height: 1.3;
+    }
 
     .popup {
-        width: 280px;
-        height: 210px;
-        padding: 0 10px;
-    }
-
-    .popup img {
-        height: 60px;
-        margin-top: -33px;
+        width: 92%;
+        max-width: 380px;
+        height: auto;
+        min-height: 280px;
+        border-radius: 20px;
+        padding: 1.2rem;
     }
 
     .popup h2 {
-        font-size: 21px;
-        margin-top: 10px;
+        font-size: clamp(1.4rem, 4vw, 1.7rem);
     }
 
     .popup p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .popup button {
+        height: 44px;
+        font-size: 14px;
+        margin-top: 18px;
+    }
+
+}
+
+
+
+
+/* Mobile Styles */
+@media screen and (max-width: 480px) {
+    #contact {
+        padding: 30px 0 130px 0;
+        min-height: auto;
+    }
+
+    #contact .container {
+        padding: 1.2rem 0.8rem;
+        border-radius: 16px;
+        max-width: 98%;
+        margin: 1rem auto 0;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .contact-title {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+        margin-bottom: 0.8rem;
+        padding: 0 1rem;
+    }
+
+    .contact-text {
+        font-size: 14px;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        padding: 0 1rem;
+        max-width: 100%;
+    }
+
+    .container .formdiv {
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+        padding: 0 0.8rem;
+    }
+
+    .divBox {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    form .inputBox {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    form .inputBox input, form .inputBox textarea {
+        font-size: 15px;
+        padding: 0 20px;
+        margin: 6px 0;
+        height: 52px;
+        border-radius: 12px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    form .inputBox textarea {
+        height: 140px;
+        padding: 18px 20px;
+        resize: vertical;
+        min-height: 110px;
+        max-height: 220px;
+    }
+
+    form .inputBox.contact-btn {
+        justify-content: center;
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    form .inputBox.contact-btn button {
+        padding: 14px 28px;
+        font-size: 14px;
+        border-radius: 12px;
+        min-width: 140px;
+        width: auto;
+        max-width: 200px;
+    }
+
+    .contactList {
+        gap: 1rem;
+        margin-top: 0;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .list {
+        width: calc(50% - 0.5rem);
+        min-width: 140px;
+        max-width: 160px;
+        height: 140px;
+        border-radius: 16px;
+        flex: 1;
+    }
+
+    .list .icon a {
+        height: 44px;
+        width: 44px;
+        font-size: 18px;
+    }
+
+    .list .info h2 {
         font-size: 13px;
-        font-weight: 500;
-        line-height: 22px;
-        margin-top: 10px;
+        margin: 10px 0 4px;
+        font-weight: 600;
+    }
+
+    .list .info a {
+        font-size: 11px;
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    .popup {
+        width: 96%;
+        max-width: 320px;
+        height: auto;
+        min-height: 240px;
+        border-radius: 16px;
+        padding: 1rem;
+    }
+
+    .popup img {
+        height: 70px;
+        margin-top: -35px;
+    }
+
+    .popup h2 {
+        font-size: clamp(1.2rem, 4vw, 1.4rem);
+        margin-top: 12px;
+    }
+
+    .popup p {
+        font-size: 12px;
+        margin-top: 12px;
+        line-height: 1.5;
+        padding: 0 0.5rem;
     }
 
     .popup button {
         height: 40px;
-        margin-top: 20px;
-        font-size: 15px;
+        font-size: 13px;
+        margin-top: 16px;
+        border-radius: 8px;
+        min-width: 80px;
+    }
+}
+
+
+
+
+/* Additional responsive enhancements for very small screens */
+@media screen and (max-width: 360px) {
+    #contact {
+        padding: 25px 0 120px 0;
     }
 
+    #contact .container {
+        padding: 1rem 0.5rem;
+        margin: 0.8rem auto 0;
+        max-width: 99%;
+        gap: 1.5rem;
+    }
 
+    .container .formdiv {
+        padding: 0 1rem;
+    }
 
+    .contact-title {
+        font-size: clamp(1.4rem, 7vw, 1.8rem);
+        margin-bottom: 0.6rem;
+        padding: 0 0.5rem;
+    }
+
+    .contact-text {
+        font-size: 13px;
+        margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+    }
+
+    form .inputBox input, form .inputBox textarea {
+        font-size: 14px;
+        padding: 0 18px;
+        height: 50px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    form .inputBox textarea {
+        height: 120px;
+        padding: 16px 18px;
+        min-height: 90px;
+    }
+
+    form .inputBox.contact-btn button {
+        padding: 12px 24px;
+        font-size: 13px;
+        min-width: 120px;
+    }
+
+    .list {
+        width: 100%;
+        max-width: 280px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .list .icon a {
+        height: 40px;
+        width: 40px;
+        font-size: 16px;
+    }
+
+    .list .info h2 {
+        font-size: 12px;
+        margin: 8px 0 3px;
+    }
+
+    .list .info a {
+        font-size: 10px;
+    }
+
+    .popup {
+        width: 98%;
+        max-width: 300px;
+        padding: 0.8rem;
+    }
+
+    .popup img {
+        height: 60px;
+        margin-top: -30px;
+    }
+
+    .popup h2 {
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+
+    .popup p {
+        font-size: 11px;
+        margin-top: 10px;
+    }
+
+    .popup button {
+        height: 38px;
+        font-size: 12px;
+        margin-top: 14px;
+    }
 }
+
+/* Enhanced touch targets and accessibility */
+@media (hover: none) and (pointer: coarse) {
+    form .inputBox input, form .inputBox textarea {
+        min-height: 48px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    form .inputBox.contact-btn button {
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .list .icon a {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}
+
+/* Contact section styling complete with modern glassmorphism effects and responsive design */

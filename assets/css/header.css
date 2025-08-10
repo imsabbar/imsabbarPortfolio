@@ -37,11 +37,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 0 5%;
     height: var(--header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background: var(--bg-color);
     box-shadow: var(--shadow);
     z-index: 1000;
@@ -49,16 +45,47 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Premium Logo with Bouncing Dot */
+#header .container {
+    max-width: var(--content-max-width, 1200px);
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 3rem);
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive Header Adjustments */
+@media (max-width: 768px) {
+    #header .container {
+        padding: 0 clamp(1rem, 4vw, 2rem);
+    }
+    
+    .logo h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #header .container {
+        padding: 0 1rem;
+    }
+    
+    .logo h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Clean Professional Logo */
 .logo h2 {
     font-size: 2.1rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-color);
-    transition: var(--transition);
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
     position: relative;
     display: inline-block;
     font-family: 'Clash Display', sans-serif;
+    line-height: 1.2;
 }
 
 .logo h2 span:first-child {
@@ -66,41 +93,31 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 700;
+    font-weight: 600;
     display: inline-block;
 }
 
 .logo h2 span:last-child {
-    margin-left:5px;
-    color: var(--primary-dark);
-    font-weight: 800;
-    transition: var(--transition);
+    margin-left: 2px;
+    color: var(--text-color);
+    font-weight: 600;
     position: relative;
     display: inline-block;
+    opacity: 0.8;
 }
 
-/* Infinite Bouncing Dot Animation */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-8px) scale(1.2); }
+/* Simple Logo Hover Effect */
+.logo h2 span:first-child {
+    transition: all 0.2s ease;
 }
 
-.logo h2 span:last-child::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    width: 8px;
-    height: 8px;
-    background: var(--primary-light);
-    border-radius: 50%;
-    animation: bounce 1.5s infinite ease-in-out;
-    box-shadow: 0 0 15px var(--primary-light);
+.logo h2 span:last-child {
+    transition: all 0.2s ease;
 }
 
 .logo:hover h2 span:last-child {
     color: var(--primary-color);
-    transform: rotate(5deg);
+    opacity: 1;
 }
 
 /* Header Menu Container */
@@ -134,25 +151,7 @@
     perspective: 500px;
 }
 
-.navLinks a::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-    border-radius: 2px;
-    z-index: -1;
-}
-
-.navLinks a:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-}
+/* Removed underline - keeping only background effect */
 
 .navLinks a::after {
     content: '';
@@ -176,10 +175,6 @@
 .navLinks a.active {
     color: var(--primary-color);
     font-weight: 700;
-}
-
-.navLinks a.active::before {
-    transform: scaleX(1);
 }
 
 .navLinks a:hover {

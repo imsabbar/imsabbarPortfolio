@@ -1,145 +1,210 @@
 
 #services {
-    height: 100%;
-    background-color: #fffffe;
-    padding: 100px 0 ;
+    min-height: 100vh;
+    padding: 100px 0;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+    position: relative;
+    overflow: hidden;
 }
 
+#services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
 
 #services .services-title {
-    color: #525363;
-    font-size: 37px;
-    font-weight: 600;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: var(--font-special);
+    background: linear-gradient(to right, var(--text-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+    font-weight: 700;
     text-align: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
 }
 
 .services-title span {
-    color: #00A78E;
+    background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #services .services-text {
-    color: #525363;
-    font-size: 18px;
-    margin: 25px auto 0;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin: 1.5rem auto 0;
     text-align: center;
-    font-family: 'Ubuntu',  sans-serif;
-    line-height: 27px;
-    max-width: 650px;
-    font-family: 550;
+    font-family: var(--font-body);
+    line-height: 1.6;
+    max-width: 700px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
 }
 
 
 
 #services .services-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 360px));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     justify-content: center;
-    gap: 30px;
-    width: 1200px;
-    margin: 70px auto;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
 }
 
 .service-box {
-    height: 340px;
-    background: #fff;
-    border-radius: 7px;
+    min-height: 340px;
+    background: rgba(var(--card-bg-rgb), 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-    transition: 300ms ease;
-    cursor: default;
+    padding: 2.5rem 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
     text-align: center;
-    box-shadow: 0 5px 20px 1px hsla(220, 63%, 33%, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.service-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.05) 0%, rgba(var(--accent-color-rgb), 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
 }
 
 .service-box:hover {
-    top: -5%;
-    transform: translateY(-5%) ;
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(var(--primary-color-rgb), 0.15);
+    border-color: rgba(var(--primary-color-rgb), 0.3);
+}
+
+.service-box:hover::before {
+    opacity: 1;
 }
 
 .service-box .service-icon {
-    margin: 0 auto;
-    width: 64px;
-    height: 64px;
-    background: #02bea2;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    transform-style: preserve-3d;
-    transition: all 200ms ease-out 0s;
+    margin-bottom: 1.5rem;
+    border-radius: 20px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.3);
+    z-index: 2;
 }
 
 .service-box .service-icon::before {
-    position: absolute;
     content: '';
-    left: -8px;
-    top: -8px;
-    height: 100%;
-    width: 100%;
-    background: #cbf1ea;
-    transition: all .3s ease-out 0s;
-    transform: translateZ(-1px)
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.4s ease;
 }
 
 .service-icon .icon {
-    font-size: 25px;
+    font-size: 2rem;
     color: #fff;
-    transition: 200ms ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
 }
 
-
-
-.service-box:hover {
-    background-color: #02bea2;
+.service-box:hover .service-icon {
+    transform: translateY(-5px) rotate(5deg);
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
 }
 
-
-
-.service-box:hover > .service-icon::before {
-    top: 0;
-    left: 0;
-    border-radius: 10px;
+.service-box:hover .service-icon::before {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
-
-.service-box:hover > .service-icon {
-    background-color: #fff;
-    border-radius: 10px;
-}
-
-.service-box:hover > .service-icon .icon {
-    color: #02bea2;
-    font-size: 23px;
+.service-box:hover .service-icon .icon {
+    color: #ffffff !important;
+    transform: scale(1.1);
+    opacity: 1;
+    display: block;
+    visibility: visible;
 }
 
 
 
 
 .service-box .service-title {
-    margin: 18px;
-    font-size: 23px;
-    line-height: 30px;
-    font-weight: 550;
-    color: #02bea2;
-    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--text-color);
+    font-family: var(--font-special);
+    margin-bottom: 1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
 }
 
 .service-box .service-description {
-    font-size: 16px;
-    line-height: 23px;
-    color: #525363;
-    font-family: 'Ubuntu', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+.service-box:hover .service-title {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.service-box:hover .service-description {
+    color: var(--text-color);
+    opacity: 1;
+    transform: translateY(-2px);
 }
 
 
-.service-box:hover > .service-content .service-title , 
-.service-box:hover > .service-content .service-description {
-    color: #fff;
-}
 
 
 
@@ -148,51 +213,123 @@
 
 
 
-
-
-@media screen and (max-width: 1450px) {
-
-    #services .services-title {
-        font-size: 34px;
-    }
-
-    #services .services-text {
-        font-size: 17px;
-        margin: 18px auto 0;
-        line-height: 25px;
-        max-width: 600px;
-    }
-
-
+/* Responsive Design */
+@media (max-width: 1200px) {
     #services .services-container {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
-        width: 1000px;
-        gap: 20px;
+        max-width: 900px;
+        gap: 1.5rem;
+        padding: 0 1.5rem;
     }
-
+    
     .service-box {
-        height: 300px;
-        padding: 30px 15px;
+        min-height: 320px;
+        padding: 2rem 1.25rem;
     }
+    
+    .service-box .service-icon {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 1.25rem;
+    }
+    
+    .service-icon .icon {
+        font-size: 1.75rem;
+    }
+    
+    .service-box .service-title {
+        font-size: 1.375rem;
+        margin-bottom: 0.875rem;
+    }
+    
+    .service-box .service-description {
+        font-size: 0.9rem;
+    }
+}
 
-
+@media (max-width: 768px) {
+    #services {
+        padding: 80px 0;
+    }
+    
+    #services .services-text {
+        margin: 1.5rem auto 3rem;
+        max-width: 90%;
+    }
+    
+    #services .services-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        padding: 0 1rem;
+    }
+    
+    .service-box {
+        min-height: 300px;
+        padding: 1.75rem 1rem;
+        border-radius: 16px;
+    }
+    
     .service-box .service-icon {
         width: 60px;
         height: 60px;
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
+        border-radius: 16px;
     }
-
+    
     .service-icon .icon {
-        font-size: 23px;
+        font-size: 1.5rem;
     }
-
-
+    
     .service-box .service-title {
-        margin: 15px;
-        font-size: 22px;
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
     }
-
+    
     .service-box .service-description {
-        font-size: 14px;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 480px) {
+    #services {
+        padding: 60px 0;
+    }
+    
+    #services .services-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.75rem;
+    }
+    
+    .service-box {
+        min-height: 280px;
+        padding: 1.5rem 0.875rem;
+        border-radius: 12px;
+    }
+    
+    .service-box .service-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+    }
+    
+    .service-icon .icon {
+        font-size: 1.25rem;
+    }
+    
+    .service-box .service-title {
+        font-size: 1.125rem;
+    }
+    
+    .service-box .service-description {
+        font-size: 0.8rem;
+    }
+    
+    .service-box:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+    
+    .service-box:hover .service-icon {
+        transform: translateY(-3px) rotate(3deg);
     }
 }

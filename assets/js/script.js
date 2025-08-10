@@ -125,9 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const header = document.getElementById('header');
     const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.navLinks');
+    const navLinks = document.querySelector('.nav-links');
+    const navOverlay = document.querySelector('.nav-overlay');
     const themeToggles = document.querySelectorAll('.theme-toggle');
-    const navItems = document.querySelectorAll('.navLinks li a');
+    const navItems = document.querySelectorAll('.nav-links li a');
     const logo = document.querySelector('.logo');
 
     // Theme Management
@@ -138,20 +139,69 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleThemeToggle() {
-        const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        // Prevent multiple clicks during animation
+        if (this.classList.contains('clicked')) return;
         
-        // Animation for all toggles
-        themeToggles.forEach(toggle => {
-            toggle.classList.add('clicked');
-            setTimeout(() => toggle.classList.remove('clicked'), 300);
+        // Add click animation class
+        this.classList.add('clicked');
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Enhanced smooth theme transition with staggered timing
+        document.body.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        
+        // Delay theme change for better visual feedback
+        setTimeout(() => {
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }, 200);
+        
+        // Remove click animation class after animation completes
+        setTimeout(() => {
+            this.classList.remove('clicked');
+            document.body.style.transition = '';
+        }, 900);
+        
+        // Synchronized animation for all toggles with staggered timing
+        themeToggles.forEach((toggle, index) => {
+            if (toggle !== this) {
+                setTimeout(() => {
+                    toggle.classList.add('clicked');
+                    setTimeout(() => toggle.classList.remove('clicked'), 900);
+                }, index * 50);
+            }
         });
+        
+        // Add haptic feedback for supported devices
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        
+        // Create ripple effect
+        const ripple = document.createElement('div');
+        ripple.classList.add('theme-toggle-ripple');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+        
+        this.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.parentNode.removeChild(ripple);
+            }
+        }, 600);
     }
 
     // Navigation
     function updateActiveNav() {
         const scrollPosition = window.scrollY + 100;
+        const dotNavItems = document.querySelectorAll('.dot-navigation .dot');
         
         navItems.forEach(item => {
             const targetId = item.getAttribute('href');
@@ -163,6 +213,24 @@ document.addEventListener('DOMContentLoaded', function() {
                                section.offsetTop + section.offsetHeight > scrollPosition;
                 item.classList.toggle('active', isActive);
                 
+                // Update dot navigation with premium staggered animations
+                const correspondingDot = document.querySelector(`.dot-navigation .dot[href="${targetId}"]`);
+                if (correspondingDot) {
+                    if (isActive && !correspondingDot.classList.contains('active')) {
+                        correspondingDot.style.animation = 'premium-dot-activate 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards';
+                        correspondingDot.classList.add('active');
+                        
+                        // Add ripple effect
+                        const ripple = document.createElement('div');
+                        ripple.className = 'dot-ripple';
+                        correspondingDot.appendChild(ripple);
+                        setTimeout(() => ripple.remove(), 600);
+                    } else if (!isActive && correspondingDot.classList.contains('active')) {
+                        correspondingDot.style.animation = 'premium-dot-deactivate 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                        correspondingDot.classList.remove('active');
+                    }
+                }
+                
                 if (isActive) {
                     const rect = item.getBoundingClientRect();
                     const navRect = navLinks.getBoundingClientRect();
@@ -173,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling
+    // Enhanced smooth scrolling with staggered animations
     function smoothScroll(e) {
         const targetId = this.getAttribute('href');
         if (!targetId || !targetId.startsWith('#')) return;
@@ -181,26 +249,77 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const target = document.querySelector(targetId);
         if (target) {
+            // Add click animation to navigation item
+            this.style.transform = 'scale(0.95)';
+            this.style.transition = 'transform 0.15s ease-out';
+            setTimeout(() => {
+                this.style.transform = '';
+                this.style.transition = '';
+            }, 150);
+            
             window.scrollTo({
                 top: target.offsetTop - 80,
                 behavior: 'smooth'
             });
             
-            // Close mobile menu if open
+            // Staggered menu close animation for mobile
             if (window.innerWidth <= 992) {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
+                const menuItems = navLinks.querySelectorAll('li');
+                menuItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.transform = 'translateX(-100%)';
+                        item.style.opacity = '0';
+                    }, index * 50);
+                });
+                
+                setTimeout(() => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.classList.remove('menu-active');
+                    document.body.style.overflow = '';
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    
+                    // Reset menu items
+                    menuItems.forEach(item => {
+                        item.style.transform = '';
+                        item.style.opacity = '';
+                    });
+                }, menuItems.length * 50 + 200);
             }
         }
     }
 
-    // Mobile Menu
+    // Mobile Menu with Overlay
     function toggleMobileMenu() {
         const isOpening = !this.classList.contains('active');
+        
+        // Toggle menu states
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
-        document.body.style.overflow = isOpening ? 'hidden' : '';
+        navOverlay.classList.toggle('active');
+        
+        // Prevent body scroll and add menu-active class
+        if (isOpening) {
+            document.body.classList.add('menu-active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.classList.remove('menu-active');
+            document.body.style.overflow = '';
+        }
+        
+        // Set aria-expanded attribute for accessibility
+        this.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
+    }
+    
+    // Close menu when clicking on overlay
+    function closeMenuOnOverlay() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.classList.remove('menu-active');
+        document.body.style.overflow = '';
+        hamburger.setAttribute('aria-expanded', 'false');
     }
 
     // Initialize
@@ -208,19 +327,77 @@ document.addEventListener('DOMContentLoaded', function() {
         initTheme();
         
         // Event Listeners
+        // Enhanced header scroll effects
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
+            
+            // Add scrolled class for blur effect
             header.classList.toggle('scrolled', currentScroll > 50);
-            header.classList.toggle('hidden', currentScroll > 100 && currentScroll > lastScroll);
+            
+            // Hide/show header on scroll
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            
             updateActiveNav();
             lastScroll = currentScroll;
         });
         
         hamburger.addEventListener('click', toggleMobileMenu);
+        navOverlay.addEventListener('click', closeMenuOnOverlay);
         themeToggles.forEach(toggle => toggle.addEventListener('click', handleThemeToggle));
         navItems.forEach(item => item.addEventListener('click', smoothScroll));
+        
+        // Add smooth scrolling to dot navigation
+        const dotNavItems = document.querySelectorAll('.dot-navigation .dot');
+        dotNavItems.forEach(dot => dot.addEventListener('click', smoothScroll));
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenuOnOverlay();
+            }
+        });
     }
 
     let lastScroll = 0;
     init();
+});
+
+// Mouse proximity effect for profile picture
+document.addEventListener('DOMContentLoaded', function() {
+    const heroImage = document.querySelector('.hero-image');
+    
+    if (heroImage) {
+        heroImage.addEventListener('mousemove', function(e) {
+            const rect = heroImage.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const distance = Math.sqrt(
+                Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2)
+            );
+            
+            // Remove all shape classes
+            heroImage.classList.remove('shape-1', 'shape-2', 'shape-3');
+            
+            // Add shape class based on distance
+            if (distance < 50) {
+                heroImage.classList.add('shape-1');
+            } else if (distance < 100) {
+                heroImage.classList.add('shape-2');
+            } else if (distance < 150) {
+                heroImage.classList.add('shape-3');
+            }
+        });
+        
+        heroImage.addEventListener('mouseleave', function() {
+            heroImage.classList.remove('shape-1', 'shape-2', 'shape-3');
+        });
+    }
 });
