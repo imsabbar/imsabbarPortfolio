@@ -42,17 +42,17 @@
         <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
         <meta property="og:description" content="Discover the work of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Specializing in custom web development, data processing, and automation.">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://imsabbar.space">
-        <meta property="og:image" content="https://imsabbar.space/assets/images/imsabbarProfile.jpeg">
+        <meta property="og:url" content="https://imsabbar.com">
+        <meta property="og:image" content="https://imsabbar.com/assets/images/imsabbarProfile.jpeg">
         
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
         <meta name="twitter:description" content="Explore the portfolio of Ismail Sabbar (imsabbar), a skilled Full Stack Web Developer, Data Analyst, and Web Scraper.">
-        <meta name="twitter:image" content="https://imsabbar.space/assets/images/imsabbarProfile.jpeg">
+        <meta name="twitter:image" content="https://imsabbar.com/assets/images/imsabbarProfile.jpeg">
 
 
         <!-- robots meta tag-->
-        <meta href="https://imsabbar.space" rel="canonical" /> 
+        <meta href="https://imsabbar.com" rel="canonical" /> 
 
         <!-- for logo-->
         <link rel="icon" type="image/x-icon" href="assets/images/imsabbarFav.ico">
@@ -245,7 +245,7 @@
                     <a class="social-link instagram" href="https://instagram.com/im_sabbar" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a class="social-link telegram" href="https://t.me/imsabbar" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                     <a class="social-link whatsapp" href="https://wa.me/212681510095" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a class="social-link mail" href="mailto:hello@imsabbar.space" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a class="social-link mail" href="mailto:hello@imsabbar.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
 
@@ -258,7 +258,7 @@
                         <p class="description">As a passionate freelance web developer, I create captivating web experiences. With 7 years of full-stack expertise, I'm dedicated to achieving digital excellence in every unique project journey.</p>
                         
                         <div class="cta-buttons">   
-                            <a href="mailto:hello@imsabbar.space" class="btn btn-primary" target="_blank">Hire Me</a>
+                            <a href="mailto:hello@imsabbar.com" class="btn btn-primary" target="_blank">Hire Me</a>
                             <a class="btn btn-secondary" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
                         </div>
                         <p class="tagline">Your Vision is My Expertise</p>
@@ -670,7 +670,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Janna Puzzle</h4>
                         </div>
                     </div>
@@ -683,7 +683,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">digiProd</h4>
                         </div>
                     </div>
@@ -696,7 +696,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">PSO</h4>
                         </div>
                     </div>
@@ -709,7 +709,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Marketing Agency</h4>
                         </div>
                     </div>
@@ -722,7 +722,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">web design</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Unbranded Cosmetics</h4>
                         </div>
                     </div>
@@ -737,7 +737,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">R Data Analyst</h4>
                         </div>
                     </div>
@@ -749,7 +749,7 @@
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
-                            <a href="https://.imsabbar.space" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
+                            <a href="https://.imsabbar.com" class="link" target="_blank"><i class="icon fa-solid fa-eye"></i></a>
                             <h4 class="project-name">Python Data Analyst</h4>
                         </div>
                     </div>
@@ -936,11 +936,11 @@
                 <div class="contactList">
                     <div class="list">
                         <div class="icon">
-                            <a href="mailto:hello@imsabbar.space" target="_blank"><i class="fa-regular fa-envelope"></i></a>
+                            <a href="mailto:contact@imsabbar.com" target="_blank"><i class="fa-regular fa-envelope"></i></a>
                         </div>
                         <div class="info">
                             <h2>Mail me here:</h2>
-                            <a href="mailto:hello@imsabbar.online" target="_blank">hello@imsabbar.space</a>
+                            <a href="mailto:contact@imsabbar.online" target="_blank">contact@imsabbar.com</a>
                         </div>
                     </div>
     
