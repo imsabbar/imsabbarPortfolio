@@ -270,7 +270,7 @@
                         <div class="floating-bubble"></div>
                         <div class="floating-bubble"></div>
                         <div class="floating-bubble"></div>
-                        <img src="assets/images/imsabbar-profile_2k.png" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
+                        <img src="assets/images/imsabbar-profile_2k_tinypng.png" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
                     </div>
                 </div>
 
@@ -336,7 +336,7 @@
                 
                 <div class="left">
                     <div class="profile-wrapper">
-                        <img src="assets/images/imsabbar-profile_2K.png" alt="my profile picture" class="myProfile">
+                        <img src="assets/images/imsabbar-profile_2K_tinypng.png" alt="my profile picture" class="myProfile">
                     </div>
                 </div>
 
