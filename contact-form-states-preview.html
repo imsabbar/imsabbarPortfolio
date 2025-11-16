@@ -1,0 +1,284 @@
+<!-- 
+    VISUAL PREVIEW: Contact Form Status Messages
+    Copy this HTML to test the new form status messages
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form States Preview</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(79, 70, 229, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #a78bfa;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .badge {
+            background: #8b5cf6;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Status Messages */
+        .form-message {
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-message-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+
+        .form-message-error {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border: 1px solid #dc3545;
+            color: #721c24;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .message-content i {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .form-message-success i {
+            color: #28a745;
+        }
+
+        .form-message-error i {
+            color: #dc3545;
+        }
+
+        /* Button States */
+        .btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 10px 10px 10px 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-loader {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-buttons {
+            margin-top: 2rem;
+        }
+
+        .state-label {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        code {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #a78bfa;
+            font-size: 0.9rem;
+        }
+
+        .info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            color: #bfdbfe;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Success Message -->
+        <div class="section">
+            <span class="badge">✅ SUCCESS STATE</span>
+            <h2>Success Message</h2>
+            
+            <div class="form-message form-message-success">
+                <div class="message-content">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Your message has been sent successfully! I'll get back to you soon.</span>
+                </div>
+            </div>
+
+            <div class="info">
+                <strong>Triggers when:</strong> Form submission succeeds<br>
+                <strong>Auto-dismiss:</strong> After 8 seconds<br>
+                <strong>Animation:</strong> Slide down → Slide up
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="section">
+            <span class="badge">❌ ERROR STATE</span>
+            <h2>Error Message</h2>
+            
+            <div class="form-message form-message-error">
+                <div class="message-content">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>An error occurred. Please try again later.</span>
+                </div>
+            </div>
+
+            <div class="info">
+                <strong>Triggers when:</strong> Form submission fails<br>
+                <strong>Auto-dismiss:</strong> After 10 seconds<br>
+                <strong>Variants:</strong> Network error, validation error, server error
+            </div>
+        </div>
+
+        <!-- Validation Error -->
+        <div class="section">
+            <span class="badge">⚠️ VALIDATION ERROR</span>
+            <h2>Validation Error</h2>
+            
+            <div class="form-message form-message-error">
+                <div class="message-content">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>Please correct the errors in the form.</span>
+                </div>
+            </div>
+
+            <div class="info">
+                <strong>Triggers when:</strong> Client-side validation fails<br>
+                <strong>Examples:</strong> Empty required fields, invalid email, short message
+            </div>
+        </div>
+
+        <!-- Button States -->
+        <div class="section">
+            <span class="badge">🔘 BUTTON STATES</span>
+            <h2>Submit Button States</h2>
+            
+            <button class="btn">
+                <span class="btn-text">Send Message</span>
+            </button>
+            <span class="state-label">State: <code>IDLE</code> (Default state, ready for submission)</span>
+
+            <br>
+
+            <button class="btn" disabled>
+                <span class="btn-loader">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Sending...
+                </span>
+            </button>
+            <span class="state-label">State: <code>LOADING</code> (Form is submitting, button disabled)</span>
+
+            <br>
+
+            <button class="btn" disabled style="opacity: 0.6;">
+                <span class="btn-text">Send Message</span>
+            </button>
+            <span class="state-label">State: <code>DISABLED</code> (Button is disabled, cannot interact)</span>
+
+            <div class="info" style="margin-top: 1.5rem;">
+                <strong>Loading State Features:</strong><br>
+                • Spinning icon animation<br>
+                • Button disabled to prevent double-submit<br>
+                • Form opacity reduced to 60%<br>
+                • Form pointer events disabled<br>
+                • Clear visual feedback of processing
+            </div>
+        </div>
+
+        <!-- Form Flow -->
+        <div class="section">
+            <span class="badge">🔄 COMPLETE FLOW</span>
+            <h2>Form Submission Flow</h2>
+            
+            <div style="color: #d1d5db; line-height: 2; font-family: monospace; font-size: 0.9rem;">
+                1. User fills form<br>
+                2. User clicks <code>Send Message</code><br>
+                3. ⚡ Client validation runs<br>
+                4. ❌ If errors → Show validation error<br>
+                5. ✅ If valid → Show loading state<br>
+                6. 🔄 AJAX request sent<br>
+                7. ⏳ Waiting for response...<br>
+                8. Two paths:<br>
+                &nbsp;&nbsp;&nbsp;→ ✅ Success: Show success message + reset form<br>
+                &nbsp;&nbsp;&nbsp;→ ❌ Error: Show error message + keep form data<br>
+                9. Remove loading state<br>
+                10. Auto-dismiss message after timeout
+            </div>
+
+            <div class="info" style="margin-top: 1.5rem;">
+                <strong>UX Improvements:</strong><br>
+                • No confusion about submission status<br>
+                • Clear visual feedback at every step<br>
+                • Prevents double submissions<br>
+                • Professional, modern experience<br>
+                • Mobile-friendly responsive design
+            </div>
+        </div>
+    </div>
+</body>
+</html>

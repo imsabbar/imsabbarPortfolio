@@ -311,6 +311,19 @@
     object-fit: contain;
 }
 
+.icon i {
+    font-size: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon i.n8n-icon {
+    color: #8b5cf6;
+}
+
+[data-theme="dark"] .icon i.n8n-icon {
+    color: #a78bfa;
+}
+
 
 
 
@@ -542,6 +555,11 @@
     --target-width: 100%;
 }
 
+.skill-progress.n8n span {
+    --target-width: 100%;
+    background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+}
+
 
 
 
@@ -678,6 +696,10 @@
         height: 30px;
     }
 
+    .skill .icon i {
+        font-size: 1.8rem;
+    }
+
     .skill-info .subject {
         font-size: 0.9rem;
     }
@@ -734,6 +756,10 @@
         width: 50px;
         height: 50px;
         padding: 5px;
+    }
+
+    .skill .icon i {
+        font-size: 1.5rem;
     }
 
     .skill-info .subject {

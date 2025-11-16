@@ -31,7 +31,7 @@
     top: 50%;
     transform: translate(-50% , -50%);
     animation: text-color 4s ease-in-out infinite alternate;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
   
   .spinner #loadingText {

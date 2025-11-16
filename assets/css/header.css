@@ -28,9 +28,6 @@
     --shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Import premium fonts */
-@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@600;700&family=Manrope:wght@400;500;600&display=swap');
-
 /* Ultra Premium Header */
 #header {
     position: fixed;
@@ -247,9 +244,11 @@
     transition: var(--transition);
     z-index: 10;
     border: 1px solid var(--border-color);
+    list-style: none;
 }
 
-.language:hover .language-dropdown {
+.language:hover .language-dropdown,
+.language-dropdown.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

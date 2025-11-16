@@ -1,4 +1,7 @@
 <?php
+    // Start session for CSRF protection
+    session_start();
+
     // Enable error reporting only in localhost
     if ($_SERVER['HTTP_HOST'] === 'localhost') {
         ini_set('display_errors', 1);
@@ -19,6 +22,11 @@
 
     require_once 'assets/includes/helpers.inc.php'; 
 
+    // Generate CSRF token for forms
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+
 ?>
 
 
@@ -27,32 +35,35 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>ISMAIL SABBAR - Portfolio | Full Stack Web Developer & Data Analyst</title>
+        <title>ISMAIL SABBAR - Portfolio | Full Stack Developer & Automation Engineer</title>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer, Data Analyst, and Web Scraper">
-        <meta name="description" content="Explore the portfolio of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Expert in web development, data analysis, and automation. Skilled in programming languages, CMS platforms like WordPress with Elementor, and web scraping solutions.">
+        <meta name="title" content="Ismail Sabbar - Portfolio | Full Stack Developer & Automation Engineer">
+        <meta name="description" content="Ismail Sabbar (imsabbar) – Full Stack Developer & Automation Engineer. Expert in web development (Laravel, React, PHP), n8n automation workflows, custom CRM modules, WordPress plugin development, web scraping, API integrations, and data analysis. 10+ years of experience delivering end-to-end digital solutions.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
         <meta name="robots" content="index, follow">
         <meta name="language" content="English">
         <meta name="author" content="Ismail Sabbar">
-        <meta name="keywords" content="Ismail Sabbar, إسماعيل صبار, sabbar portfolio, ismail portfolio, imsabbar profile, full stack developer, web scraping expert, automation specialist, WordPress developer, Laravel expert, SEO consultant, digital solutions, software engineer, web development services, full stack web developer freelancer">
+        <meta name="keywords" content="Ismail Sabbar, إسماعيل صبار, sabbar portfolio, imsabbar profile, full stack developer, automation engineer, n8n automation, workflow automation, CRM developer, Perfex CRM, WordPress plugin development, Laravel developer, PHP developer, React developer, web scraping, API integration, data analysis, automation specialist, custom CRM modules, business automation, freelance developer">
         
-        <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
-        <meta property="og:description" content="Discover the work of Ismail Sabbar (imsabbar) – a Full Stack Web Developer, Data Analyst, and Web Scraper. Specializing in custom web development, data processing, and automation.">
+        <!-- reCAPTCHA v3 Site Key - Get from .env file -->
+        <meta name="recaptcha-site-key" content="<?php echo $_ENV['RECAPTCHA_SITE_KEY'] ?? ''; ?>">
+        
+        <meta property="og:title" content="Ismail Sabbar - Portfolio | Full Stack Developer & Automation Engineer">
+        <meta property="og:description" content="Full Stack Developer & Automation Engineer specializing in web development, n8n automation, CRM modules, WordPress plugins, and API integrations. 10+ years of experience building scalable solutions.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://imsabbar.com">
         <meta property="og:image" content="https://imsabbar.com/assets/images/imsabbarProfile.jpeg">
         
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Ismail Sabbar - Portfolio | Full Stack Web Developer & Data Analyst">
-        <meta name="twitter:description" content="Explore the portfolio of Ismail Sabbar (imsabbar), a skilled Full Stack Web Developer, Data Analyst, and Web Scraper.">
+        <meta name="twitter:title" content="Ismail Sabbar - Portfolio | Full Stack Developer & Automation Engineer">
+        <meta name="twitter:description" content="Expert in web development, n8n automation workflows, custom CRM modules, WordPress plugin development, and business process automation.">
         <meta name="twitter:image" content="https://imsabbar.com/assets/images/imsabbarProfile.jpeg">
 
 
         <!-- robots meta tag-->
-        <meta href="https://imsabbar.com" rel="canonical" /> 
+        <link rel="canonical" href="https://imsabbar.com" /> 
 
         <!-- for logo-->
         <link rel="icon" type="image/x-icon" href="assets/images/imsabbarFav.ico">
@@ -61,32 +72,35 @@
 
 
         
-        <!-- Styling links -->
-        <link rel="preload" href="assets/css/loading.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="preload" href="assets/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="stylesheet" href="assets/css/about.css">
-        <link rel="stylesheet" href="assets/css/skills.css">
-        <link rel="stylesheet" href="assets/css/portfolio.css">
-        <link rel="stylesheet" href="assets/css/services.css">
-        <link rel="stylesheet" href="assets/css/contact.css">
-        <link rel="stylesheet" href="assets/css/scroll.css">
-        <!--<link rel="preload" href="assets/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
---><link rel="stylesheet" href="assets/css/intersectionObserverTest.css">
+        <!-- Styling links - Optimized loading strategy -->
+        <!-- Critical CSS loaded immediately -->
+        <link rel="stylesheet" href="assets/css/loading.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        
+        <!-- Non-critical CSS loaded with media print trick for async loading -->
+        <link rel="stylesheet" href="assets/css/about.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="assets/css/skills.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="assets/css/portfolio.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="assets/css/services.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="assets/css/contact.css" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="assets/css/scroll.css" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="assets/css/about.css">
+            <link rel="stylesheet" href="assets/css/skills.css">
+            <link rel="stylesheet" href="assets/css/portfolio.css">
+            <link rel="stylesheet" href="assets/css/services.css">
+            <link rel="stylesheet" href="assets/css/contact.css">
+            <link rel="stylesheet" href="assets/css/scroll.css">
+        </noscript>
+        <link rel="stylesheet" href="assets/css/intersectionObserverTest.css">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-        <script src="https://kit.fontawesome.com/e1b17f703d.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+        <!-- FontAwesome - Kit only (removed duplicate CDN) -->
+        <script src="https://kit.fontawesome.com/e1b17f703d.js" crossorigin="anonymous" async></script>
 
-
-        <!-- google fonts -->
+        <!-- Optimized Google Fonts - Only Kaushan Script + Poppins -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
 
 
@@ -245,7 +259,7 @@
                     <a class="social-link instagram" href="https://instagram.com/im_sabbar" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a class="social-link telegram" href="https://t.me/imsabbar" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                     <a class="social-link whatsapp" href="https://wa.me/212681510095" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a class="social-link mail" href="mailto:hello@imsabbar.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a class="social-link mail" href="mailto:contact@imsabbar.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
 
@@ -254,23 +268,23 @@
                     <div class="hero-text">
                         <h3 class="greeting">Greetings and welcome to my PORTFOLIO!</h3>
                         <h1 class="name">Ismail Sabbar</h1>
-                        <h2 class="title">Full Stack WEB Developer - Data Analyst</h2>
-                        <p class="description">As a passionate freelance web developer, I create captivating web experiences. With 7 years of full-stack expertise, I'm dedicated to achieving digital excellence in every unique project journey.</p>
+                        <h2 class="title">Full Stack Developer & Automation Engineer</h2>
+                        <p class="description">As a passionate full-stack developer and automation engineer, I craft powerful web solutions and intelligent automation systems. With 10+ years of expertise in web development, n8n automation, and custom integrations, I transform complex challenges into streamlined digital solutions.</p>
                         
                         <div class="cta-buttons">   
-                            <a href="mailto:hello@imsabbar.com" class="btn btn-primary" target="_blank">Hire Me</a>
-                            <a class="btn btn-secondary" href="assets/files/imsabbarspace-MEN.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
+                            <a href="mailto:contact@imsabbar.com" class="btn btn-primary" target="_blank">Hire Me</a>
+                            <a class="btn btn-secondary" href="assets/files/imsabbar MEN V25.9.pdf" download target="_blank">Download My Resume <i class="fa-solid fa-download"></i></a>
                         </div>
                         <p class="tagline">Your Vision is My Expertise</p>
                     </div>
 
                     <div class="hero-image">
-                        <div class="floating-bubble"></div>
-                        <div class="floating-bubble"></div>
-                        <div class="floating-bubble"></div>
-                        <div class="floating-bubble"></div>
-                        <div class="floating-bubble"></div>
-                        <img src="assets/images/imsabbar-profile_2k_tiny.png" alt="Ismail Sabbar - Full Stack Developer and Data Analyst">
+                        <div class="floating-bubble" aria-hidden="true"></div>
+                        <div class="floating-bubble" aria-hidden="true"></div>
+                        <div class="floating-bubble" aria-hidden="true"></div>
+                        <div class="floating-bubble" aria-hidden="true"></div>
+                        <div class="floating-bubble" aria-hidden="true"></div>
+                        <img src="assets/images/imsabbar-profile_2k_tiny.png" alt="Ismail Sabbar - Full Stack Developer and Data Analyst" loading="eager">
                     </div>
                 </div>
 
@@ -299,47 +313,76 @@
         <section id="about">
 
             <h1 class="about-title">About <span>Me!</span></h1>
-            <p class="about-text">Helping brands thrive in the dynamic digital world with innovative and captivating web experiences that leave a lasting impact.</p>
+            <p class="about-text">Helping brands thrive in the digital world with innovative web solutions, intelligent automation, and data-driven insights that drive real business results.</p>
 
+            <!-- Profile Image Section -->
+            <div class="about-profile">
+                <div class="profile-wrapper">
+                    <img src="assets/images/imsabbar-profile_2K_tiny.png" alt="Ismail Sabbar - Full Stack Developer and Automation Engineer" class="myProfile" loading="lazy">
+                </div>
+            </div>
 
-            <div class="container">
-
-                
-                <div class="right">
-        
-                    <h2>Full Stack WEB Developer <span>& </span><br>Data Analyst</h2>
+            <!-- Content Section -->
+            <div class="about-content">
+                <h2 class="about-role">Full Stack Developer <span>&</span> Automation Engineer</h2>
                     
                     <p class="description">
-                        With a passion and purpose for coding, I am a Full Stack Web Developer specializing in crafting dynamic and interactive websites that captivate users. With an eye for design and a flair for creativity, I breathe life into your digital vision, ensuring seamless user experiences that leave a lasting impact. My expertise lies in engineering dynamic websites that adapt and engage across various devices and screen sizes, catering to your audience's needs. By adding my proficiency in web analytics and SEO optimization, your online presence will thrive in the competitive digital landscape. Let's embark on an exciting web development journey, where creativity and technical prowess converge to create exceptional online experiences.
+                        With 10+ years of hands-on experience, I specialize in building powerful digital solutions that transform businesses. Here's what I bring to the table:
                     </p>
-    
-    
-                    <div class="experience">
-                        <div class="tab">
-                            <i class="icon fa-solid fa-people-group"></i>
-                            <h3 class="expValue" data-val="63">00</h3>
-                            <p>Satistified Clients</p>
-                        </div>
-                        <div class="tab">
-                            <i class="icon fa-solid fa-clipboard-check"></i>
-                            <h3 class="expValue" data-val="84">00</h3>
-                            <p>Completed Projects</p>
-                        </div>
-                        
-                        <div class="tab">
-                            <i class="icon fa-solid fa-fire-flame-curved"></i>
-                            <h3 class="expValue" data-val="07">00</h3>
-                            <p>Years of Experience</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="left">
-                    <div class="profile-wrapper">
-                        <img src="assets/images/imsabbar-profile_2K_tiny.png" alt="my profile picture" class="myProfile">
-                    </div>
-                </div>
+                    
+                    <ul class="about-highlights">
+                        <li>
+                            <i class="fa-solid fa-code"></i>
+                            <div>
+                                <strong>Full-Stack Web Development</strong>
+                                <span>Building responsive, high-performance applications with Laravel, React, and PHP</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-robot"></i>
+                            <div>
+                                <strong>Workflow Automation</strong>
+                                <span>Creating intelligent automation systems with n8n that save time and boost efficiency</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-briefcase"></i>
+                            <div>
+                                <strong>Custom Business Solutions</strong>
+                                <span>CRM modules, WordPress plugins, web scraping, and API integrations tailored to your needs</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-chart-line"></i>
+                            <div>
+                                <strong>Data-Driven Insights</strong>
+                                <span>Transforming raw data into actionable insights through analysis and visualization</span>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <p class="about-cta">
+                        Whether you need a complex web platform, automated workflows, or custom business tools, I combine technical excellence with creative problem-solving to transform your vision into reality. <strong>Let's build something extraordinary together.</strong>
+                    </p>
+            </div>
 
+            <!-- Experience Stats -->
+            <div class="experience-stats">
+                <div class="stat-box">
+                    <i class="icon fa-solid fa-people-group"></i>
+                    <h3 class="expValue" data-val="63">00</h3>
+                    <p>Satisfied Clients</p>
+                </div>
+                <div class="stat-box">
+                    <i class="icon fa-solid fa-clipboard-check"></i>
+                    <h3 class="expValue" data-val="84">00</h3>
+                    <p>Completed Projects</p>
+                </div>
+                <div class="stat-box">
+                    <i class="icon fa-solid fa-fire-flame-curved"></i>
+                    <h3 class="expValue" data-val="10">00</h3>
+                    <p>Years of Experience</p>
+                </div>
             </div>
             
         </section>
@@ -359,7 +402,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/html5.png" alt="HTML 5 Logo">
+                        <img src="./assets/images/html5.png" alt="HTML 5 Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -372,7 +415,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/css3.png" alt="CSS3 Logo">
+                        <img src="./assets/images/css3.png" alt="CSS3 Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -385,7 +428,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/js.png" alt="JavaScript Logo">
+                        <img src="./assets/images/js.png" alt="JavaScript Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -398,7 +441,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/jquery.png" alt="JQuery Logo">
+                        <img src="./assets/images/jquery.png" alt="JQuery Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -411,7 +454,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/react logo.png" alt="React Logo">
+                        <img src="./assets/images/react logo.png" alt="React Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -424,7 +467,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/ajax.png" alt="Ajax Logo">
+                        <img src="./assets/images/ajax.png" alt="Ajax Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -441,7 +484,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/php.png" alt="PHP Logo">
+                        <img src="./assets/images/php.png" alt="PHP Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -454,7 +497,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/laravel logo.jpg" alt="Laravel Logo">
+                        <img src="./assets/images/laravel logo.jpg" alt="Laravel Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -467,7 +510,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/codeigniter-logo.webp" alt="CodeIgniter Logo">
+                        <img src="./assets/images/codeigniter-logo.webp" alt="CodeIgniter Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -484,7 +527,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/mysql.png" alt="MySQL Logo">
+                        <img src="./assets/images/mysql.png" alt="MySQL Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -497,7 +540,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/mongo.png" alt="MongoDB Logo">
+                        <img src="./assets/images/mongo.png" alt="MongoDB Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -514,7 +557,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/wordpress.png" alt="WordPress Logo">
+                        <img src="./assets/images/wordpress.png" alt="WordPress Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -527,7 +570,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/woocommerce.png" alt="WooCommerce Logo">
+                        <img src="./assets/images/woocommerce.png" alt="WooCommerce Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -540,7 +583,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/perfex-logo.webp" alt="Perfex CRM Logo">
+                        <img src="./assets/images/perfex-logo.webp" alt="Perfex CRM Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -551,13 +594,26 @@
                     <div class="skill-percentage">85%</div>
                 </div>
 
+                <div class="skill">
+                    <div class="icon">
+                        <i class="fa-solid fa-robot n8n-icon"></i>
+                    </div>
+                    <div class="info">
+                        <div class="skill-info">
+                            <p class="subject">n8n</p>     
+                        </div>
+                        <div class="skill-progress n8n"><span></span></div>
+                    </div>
+                    <div class="skill-percentage">100%</div>
+                </div>
+
                 <!-- Version Control -->
                 <div class="skill-category-header">
                     <h3 class="category-title">Version Control</h3>
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/git.png" alt="Git Logo">
+                        <img src="./assets/images/git.png" alt="Git Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -570,7 +626,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/github.png" alt="GitHub Logo">
+                        <img src="./assets/images/github.png" alt="GitHub Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -587,7 +643,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/python.png" alt="Python Logo">
+                        <img src="./assets/images/python.png" alt="Python Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -600,7 +656,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/java-logo-1.png" alt="Java Logo">
+                        <img src="./assets/images/java-logo-1.png" alt="Java Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -613,7 +669,7 @@
 
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/R.png" alt="R Language Logo">
+                        <img src="./assets/images/R.png" alt="R Language Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -630,7 +686,7 @@
                 </div>
                 <div class="skill">
                     <div class="icon">
-                        <img src="./assets/images/jupyter logo.png" alt="Jupyter Notebook Logo">
+                        <img src="./assets/images/jupyter logo.png" alt="Jupyter Notebook Logo" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="skill-info">
@@ -666,7 +722,7 @@
 
                 <div class="project-box webDev">
                     <div class="project-preview">
-                        <img src="assets/images/jana_thumbnail.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/jana_thumbnail.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
@@ -679,7 +735,7 @@
 
                 <div class="project-box webDev">
                     <div class="project-preview">
-                        <img src="assets/images/digiprod_thumbnail.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/digiprod_thumbnail.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
@@ -692,7 +748,7 @@
 
                 <div class="project-box webDev">
                     <div class="project-preview">
-                        <img src="assets/images/pso-thumbnail.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/pso-thumbnail.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
@@ -705,7 +761,7 @@
 
                 <div class="project-box webDev">
                     <div class="project-preview">
-                        <img src="assets/images/marketing_thumbnail.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/marketing_thumbnail.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">Web Developement</h4>
@@ -718,7 +774,7 @@
 
                 <div class="project-box webDev">
                     <div class="project-preview">
-                        <img src="assets/images/unbranded_thumbnail.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/unbranded_thumbnail.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">web design</h4>
@@ -733,7 +789,7 @@
                 <!-- data -->
                 <div class="project-box data">
                     <div class="project-preview">
-                        <img src="assets/images/data2.jpg" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/data2.jpg" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
@@ -745,7 +801,7 @@
 
                 <div class="project-box data">
                     <div class="project-preview">
-                        <img src="assets/images/data1.png" alt="this is a picture of project" class="project-img">
+                        <img src="assets/images/data1.png" alt="this is a picture of project" class="project-img" loading="lazy">
                         
                         <div class="info-hover">
                             <h4 class="field">data project</h4>
@@ -771,110 +827,93 @@
 
             <div class="services-container">
 
+                <!-- Full Stack Development -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-mobile-button"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-layer-group"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Responsive Design</h3>
-                        <p class="service-description">Create websites that seamlessly adapt to various devices and screen sizes, ensuring a consistent and user-friendly experience.</p>
+                        <h3 class="service-title">Full Stack Web Development</h3>
+                        <p class="service-description">End-to-end web application development with modern frameworks (Laravel, React, PHP). From responsive front-ends to robust back-end systems, delivering complete digital solutions.</p>
                     </div>
                 </div>
 
+                <!-- Automation Engineering -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-code"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-robot"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Front-End Development</h3>
-                        <p class="service-description">Leverage expertise in HTML5, CSS3, and JavaScript to craft engaging and interactive user interfaces.</p>
+                        <h3 class="service-title">Workflow Automation & Integration</h3>
+                        <p class="service-description">Expert in n8n automation workflows, connecting APIs, automating repetitive tasks, and integrating business systems. Save time and eliminate manual processes with smart automation solutions.</p>
                     </div>
                 </div>
 
+                <!-- CRM Development -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-server"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-briefcase"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Back-End Development</h3>
-                        <p class="service-description">Building the engine that powers your website or application, ensuring seamless data management and dynamic functionality.</p>
+                        <h3 class="service-title">Custom CRM Development & Modules</h3>
+                        <p class="service-description">Build and customize CRM systems (Perfex CRM, custom solutions) with tailored modules, integrations, and workflows to streamline your business operations and boost productivity.</p>
                     </div>
                 </div>
 
-
+                <!-- WordPress Development -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-laptop-code"></i></div>
+                    <div class="service-icon"><i class="icon fa-brands fa-wordpress"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Web Performance Optimization</h3>
-                        <p class="service-description">Enhance website speed and efficiency using techniques like caching, image optimization, and minimizing load times.</p>
+                        <h3 class="service-title">Custom WordPress Plugin Development</h3>
+                        <p class="service-description">Design and develop custom WordPress plugins tailored to your specific needs. From e-commerce extensions to custom functionality, I build scalable solutions that integrate seamlessly.</p>
                     </div>
                 </div>
 
+                <!-- Web Scraping & Data Extraction -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-file-code"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-spider"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Clean Code</h3>
-                        <p class="service-description">Develop well-structured, organized, and easily maintainable code adhering to industry best practices.</p>
+                        <h3 class="service-title">Web Scraping & Data Extraction</h3>
+                        <p class="service-description">Automated data extraction from websites using Python (BeautifulSoup, Selenium, Scrapy). Collect, clean, and structure web data for business intelligence and analysis.</p>
                     </div>
                 </div>
 
+                <!-- API Development & Integration -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-gauge"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-plug"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Basic SEO Optimization</h3>
-                        <p class="service-description">Optimize websites for search engines through proper HTML semantics, meta tags, and keyword placement to improve visibility and rankings.</p>
+                        <h3 class="service-title">API Development & Integration</h3>
+                        <p class="service-description">Build RESTful APIs and integrate third-party services seamlessly. Connect your applications with payment gateways, social media, CRMs, and other essential business tools.</p>
                     </div>
                 </div>
 
-
-
+                <!-- Data Analysis & Visualization -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-brands fa-python"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-chart-line"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Web Scraping</h3>
-                        <p class="service-description">Building the engine that powers your website or application, ensuring seamless data management and dynamic functionality.</p>
+                        <h3 class="service-title">Data Analysis & Visualization</h3>
+                        <p class="service-description">Transform raw data into actionable insights with Python (Pandas, NumPy) and create interactive visualizations. Analytics dashboards, reports, and business intelligence solutions.</p>
                     </div>
                 </div>
 
-
+                <!-- Performance & SEO -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-chart-pie"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-gauge-high"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Data Visualization</h3>
-                        <p class="service-description">Create compelling visual representations of data using Python libraries, transforming complex information into clear insights.</p>
+                        <h3 class="service-title">Performance Optimization & SEO</h3>
+                        <p class="service-description">Speed up your website with advanced optimization techniques and improve search engine rankings through technical SEO, semantic markup, and best practices implementation.</p>
                     </div>
                 </div>
 
-
-
+                <!-- Database Design & Management -->
                 <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-blog"></i></div>
+                    <div class="service-icon"><i class="icon fa-solid fa-database"></i></div>
 
                     <div class="service-content">
-                        <h3 class="service-title">Guest Blogging</h3>
-                        <p class="service-description">Develop engaging and informative guest blog posts, showcasing the ability to write compelling content that resonates with audiences.</p>
-                    </div>
-                </div>
-
-
-                <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-magnifying-glass-chart"></i></div>
-
-                    <div class="service-content">
-                        <h3 class="service-title">Marketing Analytics and Reporting</h3>
-                        <p class="service-description">Analyze website traffic, user behavior, and marketing campaigns, delivering actionable insights through data-driven reports.</p>
-                    </div>
-                </div>
-
-
-                <div class="service-box">
-                    <div class="service-icon"><i class="icon fa-solid fa-gear"></i></div>
-
-                    <div class="service-content">
-                        <h3 class="service-title">Hosting Services</h3>
-                        <p class="service-description">Seamlessly manage and host your website for optimal performance, security, and accessibility. Focus on your content while I handle the technical details.</p>
+                        <h3 class="service-title">Database Design & Management</h3>
+                        <p class="service-description">Design, optimize, and manage databases (MySQL, MongoDB, PostgreSQL). From schema design to query optimization, ensuring efficient data storage and retrieval for your applications.</p>
                     </div>
                 </div>
 
@@ -894,7 +933,15 @@
             <div class="container">
 
                 <div class="formdiv">
-                    <form action="includes/contact.inc.php" method = "project" enctype="multipart/form-data">
+                    <!-- Form Status Messages -->
+                    <div id="formStatusMessages" class="form-status-container"></div>
+                    
+                    <form id="contactForm" action="assets/includes/contact.inc.php" method="POST" enctype="multipart/form-data">
+                        <!-- CSRF Token for security -->
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+                        
+                        <!-- reCAPTCHA v3 Token (will be populated by JavaScript) -->
+                        <input type="hidden" name="recaptcha_token" id="recaptchaToken">
     
                         <div class="divBox">
                             <div class="inputBox">
@@ -926,7 +973,12 @@
                         </div>
     
                         <div class="inputBox contact-btn">
-                            <button id="contactbtn" type="submit" name="submit" >Send Message</button>
+                            <button id="contactbtn" type="submit" name="submit">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-loader" style="display: none;">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Sending...
+                                </span>
+                            </button>
                         </div>
                     </form>
     
@@ -940,7 +992,7 @@
                         </div>
                         <div class="info">
                             <h2>Mail me here:</h2>
-                            <a href="mailto:contact@imsabbar.online" target="_blank">contact@imsabbar.com</a>
+                            <a href="mailto:contact@imsabbar.com" target="_blank">contact@imsabbar.com</a>
                         </div>
                     </div>
     
@@ -994,12 +1046,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
         <script type="text/javascript" src="assets/js/loading.js"></script>
         <script type="text/javascript" src="assets/js/script.js"></script>
+        <script type="text/javascript" src="assets/js/languageSwitcher.js"></script>
+        <script type="text/javascript" src="assets/js/skillsData.js"></script>
         <script type="text/javascript" src="assets/js/projFilter.js"></script>
         <script type="text/javascript" src="assets/js/scrollAnimation.js"></script>
         <script type="text/javascript" src="assets/js/textAnimation.js"></script>
         <script type="text/javascript" src="assets/js/aboutExperience.js"></script>
         <script type="text/javascript" src="assets/js/skillsAnimation.js"></script>
         <script type="text/javascript" src="assets/js/intersectionObserverTest.js"></script>
+        <script type="text/javascript" src="assets/js/contactForm.js"></script>
+        <script type="text/javascript" src="assets/js/recaptcha.js"></script>
 
     </body>
 </html>
