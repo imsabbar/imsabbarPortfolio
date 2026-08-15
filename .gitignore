@@ -1,0 +1,49 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js build output
+/.next
+/out
+/build
+/dist
+
+# Production
+/build
+
+# Environment files — never commit secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Uploaded user content — keep outside version control
+/uploads
+
+# Tooling / editor
+.commandcode/
+.trae/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Misc
+*.pem
+*.key
