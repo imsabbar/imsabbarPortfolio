@@ -28,7 +28,7 @@ export function WhatsAppWidget({ dict, phone }: WhatsAppWidgetProps) {
       target="_blank"
       rel="noopener noreferrer"
       title={dict.a11y.open_whatsapp}
-      className="fixed bottom-24 lg:bottom-8 right-5 lg:right-8 z-40 p-3.5 rounded-full bg-emerald-500 text-white shadow-2xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center border-2 border-white/20 group"
+      className="fixed bottom-6 sm:bottom-8 right-5 sm:right-8 z-40 p-3.5 rounded-full bg-emerald-500 text-white shadow-2xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center border-2 border-white/20 group"
     >
       <span className="sr-only">{dict.a11y.open_whatsapp}</span>
       <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">

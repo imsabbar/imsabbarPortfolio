@@ -27,8 +27,8 @@ email VARCHAR(255) NULL,
 
 The OS PRD §4.10 still declares both as `NOT NULL`. If the OS creates the table
 from that spec, anonymous booking/WhatsApp inserts will fail. Use the canonical
-`scripts/init-db.sql` shape (nullable) and apply
-`scripts/phase7-hardening-migration.sql` for existing tables.
+`scripts/01-schema.sql` shape (nullable) and apply
+`scripts/01-schema.sql` for table definitions.
 
 ## 3. Additional lead columns
 

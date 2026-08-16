@@ -189,7 +189,7 @@ export function Navbar({ dict, currentLocale, onOpenBooking }: NavbarProps) {
           <ThemeToggle label={dict.a11y.toggle_theme} />
 
           {/* Locale Switcher */}
-          <div className="hidden sm:flex items-center gap-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl p-1 text-xs backdrop-blur-md shadow-2xs">
+          <div className="hidden lg:flex items-center gap-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl p-1 text-xs backdrop-blur-md shadow-2xs">
             {(Object.keys(localeNames) as Locale[]).map((loc) => (
               <Link
                 key={loc}
@@ -210,7 +210,7 @@ export function Navbar({ dict, currentLocale, onOpenBooking }: NavbarProps) {
           <button
             type="button"
             onClick={() => (onOpenBooking ? onOpenBooking() : (window.location.href = '#contact'))}
-            className="hidden sm:inline-flex btn btn-primary text-white cursor-pointer"
+            className="hidden lg:inline-flex btn btn-primary text-white cursor-pointer"
           >
             <span>{dict.nav.book_call}</span>
             <span className="btn-icon-hover inline-block">→</span>

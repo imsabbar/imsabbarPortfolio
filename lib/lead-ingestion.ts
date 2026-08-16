@@ -72,7 +72,7 @@ export async function insertFormLead(input: LeadInput, ipHash: string, userAgent
       (name, email, phone, company, country, currency, service_interest, estimated_budget,
        timeline, calculated_roi_savings, message, source_page, source_type, ip_hash, user_agent,
        locale, consent_at, privacy_policy_version)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'form', ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'form', ?, ?, ?, ?, ?)`,
     [
       input.name,
       input.email,
@@ -130,9 +130,9 @@ export async function insertBookingLead(input: BookingInput, ipHash: string, use
   const message = `Booking gate: ${input.project_type}; budget range: ${input.budget_range}`;
   const result = await execute(
     `INSERT INTO portfolio_leads
-      (name, email, currency, service_interest, estimated_budget, message, source_page, source_type, ip_hash, user_agent)
-     VALUES (NULL, NULL, 'USD', ?, ?, ?, ?, 'booking', ?, ?)`,
-    [input.project_type, bookingBudgetValue[input.budget_range], message, input.source_page, ipHash, userAgent] as ExecuteValues[]
+      (name, email, currency, service_interest, estimated_budget, message, source_page, source_type, ip_hash, user_agent, locale)
+     VALUES (NULL, NULL, 'USD', ?, ?, ?, ?, 'booking', ?, ?, ?)`,
+    [input.project_type, bookingBudgetValue[input.budget_range], message, input.source_page, ipHash, userAgent, input.locale] as ExecuteValues[]
   );
   return {
     id: result.insertId,
@@ -161,12 +161,12 @@ export async function insertBookingLead(input: BookingInput, ipHash: string, use
   };
 }
 
-export async function insertWhatsAppLead(sourcePage: string, ipHash: string, userAgent: string): Promise<ResultSetHeader> {
+export async function insertWhatsAppLead(sourcePage: string, ipHash: string, userAgent: string, locale = 'en'): Promise<ResultSetHeader> {
   return execute(
     `INSERT INTO portfolio_leads
-      (name, email, source_page, source_type, ip_hash, user_agent)
-     VALUES (NULL, NULL, ?, 'whatsapp', ?, ?)`,
-    [sourcePage, ipHash, userAgent] as ExecuteValues[]
+      (name, email, source_page, source_type, ip_hash, user_agent, locale)
+     VALUES (NULL, NULL, ?, 'whatsapp', ?, ?, ?)`,
+    [sourcePage, ipHash, userAgent, locale] as ExecuteValues[]
   );
 }
 

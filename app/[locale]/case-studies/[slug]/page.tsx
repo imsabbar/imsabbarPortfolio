@@ -101,12 +101,41 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     getNextCaseStudy(slug),
   ]);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: getLocalizedField(caseStudy.title_i18n, caseStudy.title, locale),
+    description: getLocalizedField(caseStudy.summary_i18n, caseStudy.summary, locale),
+    image: caseStudy.image_url || undefined,
+    author: {
+      '@type': 'Person',
+      name: 'Ismail Sabbar',
+      url: 'https://imsabbar.com',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Ismail Sabbar',
+      url: 'https://imsabbar.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://imsabbar.com/${locale}/case-studies/${caseStudy.slug}`,
+    },
+    inLanguage: locale,
+  };
+
   return (
-    <CaseStudyDetail
-      dict={dict}
-      locale={locale}
-      caseStudy={caseStudy}
-      nextCaseStudy={nextCaseStudy}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <CaseStudyDetail
+        dict={dict}
+        locale={locale}
+        caseStudy={caseStudy}
+        nextCaseStudy={nextCaseStudy}
+      />
+    </>
   );
 }

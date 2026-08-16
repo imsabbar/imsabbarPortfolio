@@ -270,10 +270,10 @@ export function CaseStudyDetail({ dict, locale, caseStudy, nextCaseStudy }: Case
           <p className="text-[var(--color-text-muted)] font-body max-w-2xl mx-auto">
             {cs.detail_cta_body}
           </p>
-          <a href="#contact" className="btn btn-primary inline-flex">
+          <Link href={`/${locale}#contact`} className="btn btn-primary inline-flex">
             {cs.detail_cta_button}
             <ArrowRightIcon className="w-3.5 h-3.5 rtl:rotate-180" />
-          </a>
+          </Link>
         </div>
       </section>
 

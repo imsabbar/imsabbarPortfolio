@@ -49,4 +49,5 @@ export type BookingInput = z.infer<typeof bookingInputSchema>;
 
 export const clickInputSchema = z.object({
   source_page: sourcePageSchema.default('/'),
+  locale: localeSchema.default('en'),
 });

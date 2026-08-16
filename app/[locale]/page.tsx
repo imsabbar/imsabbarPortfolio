@@ -68,6 +68,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         alt: `${displayName} — Automation & CRM Engineering`,
       }],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`/${locale}/opengraph-image`],
+    },
   };
 }
 
@@ -86,7 +92,7 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <>
       {/* SEO JSON-LD Structured Data */}
-      <JsonLd />
+      <JsonLd locale={locale} faqs={sections.faqs} />
 
       {/* Stateful Client Shell — receives DB-driven section data. */}
       <ClientHomeShell

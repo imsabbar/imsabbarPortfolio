@@ -117,25 +117,22 @@ The database layer connects to a remote MySQL 8 instance on Hostinger. All queri
 
 All SQL migration scripts are located in the `scripts/` directory:
 
-1. **Fresh Hostinger Setup**:
+1. **Schema & Indexes Setup**:
    ```bash
-   # Run against your Hostinger database via phpMyAdmin or MySQL CLI:
-   scripts/hostinger-fresh-install.sql
+   # Run against your Hostinger MySQL database via phpMyAdmin or CLI:
+   scripts/01-schema.sql
    ```
 2. **Seed Initial Multilingual Data**:
    ```bash
-   scripts/seed-portfolio-data-i18n.sql
-   ```
-3. **Hardening & Lead Schema Migration**:
-   ```bash
-   scripts/phase7-hardening-migration.sql
+   # Populate all 9 tables with complete tri-lingual content (en, fr, ar):
+   scripts/02-seed-data.sql
    ```
 
 ---
 
 ## 🔄 `imsabbar OS` Integration Contract
 
-The public portfolio is the **runtime source of truth**. When managed via the companion `imsabbar OS` Admin Application, the following contract rules apply:
+The public portfolio is the **runtime source of truth**. When managed via the companion `imsabbar OS` Admin Application, the following contract rules apply (see detailed specification in [`CONTRACT-NOTES.md`](CONTRACT-NOTES.md) and [`ARCHITECTURE.md`](ARCHITECTURE.md)):
 
 1. **On-Demand Cache Revalidation**:
    * **Endpoint**: `POST https://imsabbar.com/api/revalidate`
@@ -164,6 +161,7 @@ cp .env.example .env.local
 | `PORTFOLIO_DB_PASSWORD` | MySQL Password | `your_secure_password` |
 | `PORTFOLIO_DB_NAME` | MySQL Database Name | `u123456789_portfolio_db` |
 | `PORTFOLIO_REVALIDATE_SECRET`| Shared secret for cache revalidation | High-entropy random string |
+| `PORTFOLIO_ALLOWED_ORIGINS` | Comma-separated allowed OS origins for revalidation | `https://os.imsabbar.com,http://localhost:3001` |
 | `USE_SAMPLE_DATA` | Set `true` to run locally without a database | `false` |
 | `PORTFOLIO_IP_HASH_PEPPER` | Salt for hashing visitor IPs | High-entropy secret |
 | `NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY` | Turnstile public widget key | `0x4AAAAAA...` |

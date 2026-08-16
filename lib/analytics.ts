@@ -53,14 +53,14 @@ export function trackServerEvent(event: AnalyticsEvent, props?: EventProps): voi
 }
 
 /** Fire a non-blocking WhatsApp attribution request before the browser navigates. */
-export function trackWhatsAppClick(sourcePage?: string): void {
+export function trackWhatsAppClick(sourcePage?: string, locale?: string): void {
   const page = sourcePage ?? (typeof window !== 'undefined' ? window.location.pathname : '/');
-  trackEvent('whatsapp_click', { page });
+  trackEvent('whatsapp_click', { page, locale });
   if (typeof window === 'undefined') return;
   void fetch('/api/lead/click', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ source_page: page }),
+    body: JSON.stringify({ source_page: page, locale: locale || 'en' }),
     keepalive: true,
   }).catch(() => {
     // Attribution must never block or interrupt the WhatsApp navigation.

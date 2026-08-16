@@ -13,8 +13,16 @@ function safeWebsiteUrl(value: string | null): string | null {
 }
 
 function safeAssetUrl(value: string): string | null {
-  try { const url = new URL(value); return url.protocol === 'https:' && url.hostname === 'assets.imsabbar.com' ? url.toString() : null; }
-  catch { return null; }
+  if (!value) return null;
+  if (value.startsWith('/') && !value.startsWith('//')) return value;
+  try {
+    const url = new URL(value);
+    if (url.protocol === 'https:' && url.hostname === 'assets.imsabbar.com') return url.toString();
+    if (process.env.NODE_ENV !== 'production' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1')) return url.toString();
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 function LogoImage({ src, alt }: { src: string; alt: string }) {

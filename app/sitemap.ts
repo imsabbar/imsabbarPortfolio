@@ -18,8 +18,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const locale of i18n.locales) {
     entries.push(
-      { url: localizedUrl(base, locale), changeFrequency: 'weekly', priority: 1 },
-      { url: localizedUrl(base, locale, '/privacy'), changeFrequency: 'yearly', priority: 0.2 },
+      {
+        url: localizedUrl(base, locale),
+        changeFrequency: 'weekly',
+        priority: 1,
+        alternates: {
+          languages: {
+            ...Object.fromEntries(i18n.locales.map((l) => [l, localizedUrl(base, l)])),
+            'x-default': localizedUrl(base, i18n.defaultLocale),
+          },
+        },
+      },
+      {
+        url: localizedUrl(base, locale, '/privacy'),
+        changeFrequency: 'yearly',
+        priority: 0.2,
+        alternates: {
+          languages: {
+            ...Object.fromEntries(i18n.locales.map((l) => [l, localizedUrl(base, l, '/privacy')])),
+            'x-default': localizedUrl(base, i18n.defaultLocale, '/privacy'),
+          },
+        },
+      },
     );
   }
 
@@ -36,6 +56,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: localizedUrl(base, locale, `/case-studies/${encodeURIComponent(slug)}`),
         changeFrequency: 'monthly',
         priority: 0.8,
+        alternates: {
+          languages: {
+            ...Object.fromEntries(
+              i18n.locales.map((l) => [l, localizedUrl(base, l, `/case-studies/${encodeURIComponent(slug)}`)])
+            ),
+            'x-default': localizedUrl(base, i18n.defaultLocale, `/case-studies/${encodeURIComponent(slug)}`),
+          },
+        },
       });
     }
   }

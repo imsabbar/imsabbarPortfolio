@@ -15,7 +15,6 @@ import { TestimonialCarousel } from '@/components/TestimonialCarousel';
 import { PricingMatrix } from '@/components/PricingMatrix';
 import { About } from '@/components/About';
 import { LeadForm } from '@/components/LeadForm';
-import { MobileBottomBar } from '@/components/MobileBottomBar';
 import { WhatsAppWidget } from '@/components/WhatsAppWidget';
 import { FaqSection } from '@/components/FaqSection';
 import { ClientLogosSection } from '@/components/ClientLogosSection';
@@ -46,7 +45,7 @@ export function ClientHomeShell({ dict, locale, sections, initialCurrency }: Cli
   const [pdfCurrency, setPdfCurrency] = useState<Currency>(initialCurrency);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-text)] pb-16 lg:pb-0 relative selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="min-h-screen flex flex-col bg-[var(--color-bg)] text-[var(--color-text)] relative selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* Living Ambient Lighting Layer */}
       <AmbientGlowBackground />
 
@@ -150,8 +149,6 @@ export function ClientHomeShell({ dict, locale, sections, initialCurrency }: Cli
       </main>
 
       <WhatsAppWidget dict={dict} phone={sections.settings.contact_phone} />
-
-      <MobileBottomBar dict={dict} onOpenBooking={() => setIsBookingOpen(true)} phone={sections.settings.contact_phone} />
 
       <BookingGateModal
         isOpen={isBookingOpen}

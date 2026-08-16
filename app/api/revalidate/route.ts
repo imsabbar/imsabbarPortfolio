@@ -35,35 +35,45 @@ export const runtime = 'nodejs';
 // Never cache this endpoint itself.
 export const dynamic = 'force-dynamic';
 
-/** Origins allowed to call this endpoint. Empty = allow only the host itself. */
+/** Origins allowed to call this endpoint. Supports same-host, dev ports, and configured OS origins. */
 function isTrustedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get('origin');
   const referer = req.headers.get('referer');
   const host = req.headers.get('host');
 
-  // No origin and no referer — this is a same-origin request from a server fetch
-  // (e.g. curl, internal cron). Allow only when the request has the secret.
+  // No origin and no referer — this is a same-origin request or direct server-to-server fetch.
   if (!origin && !referer) return true;
 
-  // Prefer the `Origin` header (set by browsers + most HTTP clients).
-  if (origin) {
-    try {
-      const url = new URL(origin);
-      return host !== null && url.host === host;
-    } catch {
-      return false;
-    }
-  }
+  const allowedOrigins = (process.env.PORTFOLIO_ALLOWED_ORIGINS ?? process.env.PORTFOLIO_OS_ORIGIN ?? '')
+    .split(',')
+    .map((o) => o.trim().toLowerCase())
+    .filter(Boolean);
 
-  // Fall back to `Referer` for clients that only set that.
-  if (referer) {
+  const checkUrl = (rawUrl: string): boolean => {
     try {
-      const url = new URL(referer);
-      return host !== null && url.host === host;
+      const url = new URL(rawUrl);
+      if (host !== null && url.host.toLowerCase() === host.toLowerCase()) return true;
+      if (process.env.NODE_ENV !== 'production') {
+        if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return true;
+      }
+      if (allowedOrigins.some((allowed) => {
+        try {
+          const allowedHost = new URL(allowed).host.toLowerCase();
+          return url.host.toLowerCase() === allowedHost;
+        } catch {
+          return url.host.toLowerCase() === allowed.replace(/^https?:\/\//, '').toLowerCase();
+        }
+      })) {
+        return true;
+      }
+      return false;
     } catch {
       return false;
     }
-  }
+  };
+
+  if (origin && checkUrl(origin)) return true;
+  if (referer && checkUrl(referer)) return true;
 
   return false;
 }
