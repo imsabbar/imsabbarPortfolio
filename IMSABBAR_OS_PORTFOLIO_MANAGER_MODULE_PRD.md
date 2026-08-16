@@ -1,11 +1,12 @@
 # imsabbar OS — Portfolio Manager Module
 ## Product Requirements Document (PRD)
-**Version:** 1.3.0  
+**Version:** 1.4.0  
 **Owner:** Ismail Sabbar  
 **Parent App:** imsabbar OS  
 **Target:** Hostinger MySQL database (shared with public portfolio)  
 **Paired PRD:** `IMSABBAR_PORTFOLIO_V2_MASTER_PRD.md` (v3.1.0)  
 
+**Changelog v1.4.0 (2026-08-16):** Enhanced cache revalidation contract (Bearer token + tags array), added Dual DB User security guidelines, specified split-screen markdown editor for case study bodies, added 1-click availability quick-toggle on dashboard, added drag-and-drop resume CV uploader, added n8n simulator nodes JSON schema validator, and added live cache revalidation toast feedback.
 **Changelog v1.3.0 (2026-08-13):** Upgraded the module to an immediate-live portfolio control plane with complete business-content coverage, encrypted credentials, authenticated lead operations, additive migrations, audit snapshots, rollback, provider health checks, cache feedback, and explicit Hostinger deployment boundaries. The public portfolio remains read-only.
 **Tech Stack:** Next.js 16 · React 19 · TypeScript 5.7 · Tailwind CSS · shadcn/ui · mysql2 · SWR
 
@@ -597,17 +598,31 @@ Create a helper function (not necessarily an API route) to call the portfolio's 
 
 ```ts
 // lib/portfolio/cache.ts
-export async function revalidatePortfolioTag(tag: string) {
+export async function revalidatePortfolioTag(tag: string | string[]): Promise<boolean> {
   const portfolioUrl = process.env.PORTFOLIO_URL;
   const secret = process.env.PORTFOLIO_REVALIDATE_SECRET;
   
-  if (!portfolioUrl || !secret) return;
+  if (!portfolioUrl || !secret) {
+    console.warn('Portfolio revalidation not configured');
+    return false;
+  }
   
-  await fetch(`${portfolioUrl}/api/revalidate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tag, secret }),
-  });
+  const tags = Array.isArray(tag) ? tag : [tag];
+  
+  try {
+    const res = await fetch(`${portfolioUrl}/api/revalidate`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${secret}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tags }),
+    });
+    return res.ok;
+  } catch (error) {
+    console.error('Failed to revalidate portfolio:', error);
+    return false;
+  }
 }
 ```
 
@@ -623,9 +638,12 @@ Use shadcn/ui components: `Table`, `Dialog`, `Form`, `Tabs`, `Input`, `Textarea`
 
 ### 8.1 Dashboard (`/portfolio-manager`)
 
-- Quick stats: total leads this month, active plans, active case studies, unread leads
-- Recent leads table (last 10)
-- Quick links to each section
+- **Live Availability Quick-Toggle (Header)**:
+  - Top-right 1-click segmented toggle for `Online` (Green pulse) / `Busy` (Amber) / `Offline` (Gray).
+  - Immediately updates `portfolio_settings.availability_status` and triggers `revalidatePortfolioTag('portfolio_settings')` with instant visual toast confirmation.
+- **Key Metrics Overview**: Total leads this month, active pricing plans, active case studies, unread leads count with pulse badge.
+- **Recent Inbound Leads Table**: Latest 10 submissions with status badges, source pill (`Form`, `Booking`, `WhatsApp`), and quick action drawer.
+- **Section Health Shortcuts**: Direct status indicators and links for each content entity.
 
 ### 8.2 Hero (`/portfolio-manager/hero`)
 
@@ -635,7 +653,7 @@ Edit `portfolio_content_blocks` key `hero` + `portfolio_settings`:
 - CTA labels (per locale)
 - Spec chips list (per locale — the mono chips row, e.g. "n8n Automation")
 - Availability message (per locale — moved out of settings; see §4.9 note)
-- Availability status (online/busy) — single-language, managed in Settings (§8.12)
+- Availability status (online/busy) — single-language, managed via quick-toggle (§8.1) or Settings (§8.12)
 
 ### 8.3 About (`/portfolio-manager/about`)
 
@@ -672,15 +690,18 @@ CRUD for `portfolio_tech_stack`:
 CRUD for `portfolio_case_studies`:
 - Title + i18n
 - Summary + i18n
-- Client name, region
-- Impact metric
-- Before/after metrics + improvement percent
+- Client name, region + i18n
+- Impact metric + i18n
+- Before/after metrics + improvement percent + i18n
 - Demo URL, GitHub URL
-- Cover image upload
-- X-Ray specs JSON editor
-- n8n nodes JSON editor
-- Long-form body editor (markdown, per locale via `I18nTabs`) → `body_i18n`
-- Active toggle
+- Cover image upload (with preview)
+- X-Ray specs JSON editor (architecture, stack[], executionTime, security)
+- **n8n Nodes JSON Schema Validator**:
+  - Validates that `n8n_nodes_json` contains an array of nodes matching `{ id: number, name: string, type: string, icon: string, status: string, latency: string }`.
+  - Displays a visual flowchart node preview in the admin modal to verify the simulation sequence.
+- **Split-Screen Markdown Editor (`body_i18n`)**:
+  - Live side-by-side editing per locale via `I18nTabs` with real-time markdown preview styled to match the public portfolio's typography.
+- Active toggle & Featured toggle
 - Sort order
 
 ### 8.7 Testimonials (`/portfolio-manager/testimonials`)
@@ -720,11 +741,11 @@ CRUD for `portfolio_faq`:
 CRUD for `portfolio_plans`:
 - Title + i18n
 - Badge + i18n
-- Prices in 5 currencies
-- Billing type
+- Prices in 5 currencies (`MAD`, `EUR`, `USD`, `GBP`, `AED`)
+- Billing type (`one_time`, `hourly`, `monthly`)
 - Features list (per locale)
 - Turnaround + i18n
-- CTA type
+- CTA type (`wizard`, `booking`, `whatsapp`)
 - Popular toggle
 - Active toggle
 - Sort order
@@ -735,17 +756,17 @@ Edit `portfolio_settings`:
 - Contact email
 - Contact phone/WhatsApp
 - Scheduling link (Cal.com)
-- Resume EN filename
-- Resume FR filename
-- Resume AR filename (optional)
-- Social links JSON editor
+- **Drag-and-Drop Resume PDF Uploader**:
+  - Dedicated dropzones for English (`resume_en_filename`), French (`resume_fr_filename`), and Arabic (`resume_ar_filename`) PDF resumes.
+  - Automatically uploads to the asset repository/directory and updates the setting filename in MySQL.
+- Social links JSON editor (LinkedIn, GitHub, YouTube, Telegram, WhatsApp, Email)
 
 ### 8.12 Settings (`/portfolio-manager/settings`)
 
 Edit `portfolio_settings`:
-- ICE registration number
+- ICE registration number (`003294812000045`)
 - SLA notice
-- Availability status
+- Availability status (`online` / `busy` / `offline`)
 - Stats values: `stats_years_value`, `stats_clients_value`, `stats_projects_value`
 
 > Availability **message** is now managed in the Hero editor (§8.2) as per-locale
@@ -971,41 +992,57 @@ Use these tags in the portfolio (defined there in `lib/cache-tags.ts` — keep t
 
 ### 13.2 Portfolio Endpoint
 
-The portfolio will expose:
+The portfolio exposes:
 
 ```
 POST /api/revalidate
-Body: { tag: string, secret: string }
+Headers:
+  Authorization: Bearer <PORTFOLIO_REVALIDATE_SECRET>
+  Content-Type: application/json
+Body: { "tags": ["portfolio_plans", "portfolio_settings"] }
 ```
 
-The secret is shared via `PORTFOLIO_REVALIDATE_SECRET` env var.
+The secret is shared via `PORTFOLIO_REVALIDATE_SECRET` env var. The body **must be a JSON array of tags** (`tags: string[]`), not a single string property.
 
 ### 13.3 Implementation
 
 ```ts
 // lib/portfolio/cache.ts
-export async function revalidatePortfolio(tag: string) {
+export async function revalidatePortfolio(tag: string | string[]): Promise<{ ok: boolean; revalidated?: string[]; error?: string }> {
   const url = process.env.PORTFOLIO_URL;
   const secret = process.env.PORTFOLIO_REVALIDATE_SECRET;
   
   if (!url || !secret) {
-    console.warn('Portfolio revalidation not configured');
-    return;
+    console.warn('Portfolio revalidation not configured (missing PORTFOLIO_URL or PORTFOLIO_REVALIDATE_SECRET)');
+    return { ok: false, error: 'revalidation_not_configured' };
   }
   
+  const tags = Array.isArray(tag) ? tag : [tag];
+  
   try {
-    await fetch(`${url}/api/revalidate`, {
+    const res = await fetch(`${url}/api/revalidate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tag, secret }),
+      headers: {
+        'Authorization': `Bearer ${secret}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tags }),
     });
+
+    const data = await res.json();
+    if (!res.ok) {
+      console.error('Portfolio revalidation rejected:', data);
+      return { ok: false, error: data.error || 'revalidation_failed' };
+    }
+    return { ok: true, revalidated: data.revalidated };
   } catch (error) {
-    console.error('Failed to revalidate portfolio:', error);
+    console.error('Failed to revalidate portfolio cache:', error);
+    return { ok: false, error: error instanceof Error ? error.message : 'network_error' };
   }
 }
 ```
 
-Call `revalidatePortfolio('portfolio_plans')` after plan changes, etc.
+Call `await revalidatePortfolio('portfolio_plans')` after plan changes, etc. Always display a visual toast notification to the admin showing the result of the cache revalidation (e.g. `✓ Saved & Cache Refreshed (tag: portfolio_plans)`).
 
 ### 13.4 Local Testing
 
@@ -1021,25 +1058,29 @@ When both apps run locally:
 Add these to imsabbar OS `.env`:
 
 ```env
-# MySQL (same as ChapterCharm or dedicated portfolio user)
-PORTFOLIO_DB_HOST=
+# MySQL Admin User (Full CRUD permissions for imsabbar OS)
+# Note: Security Best Practice — use an admin user for OS, while the public portfolio uses a restricted SELECT+INSERT user.
+PORTFOLIO_DB_HOST=127.0.0.1
 PORTFOLIO_DB_PORT=3306
-PORTFOLIO_DB_USER=
-PORTFOLIO_DB_PASSWORD=
-PORTFOLIO_DB_NAME=
+PORTFOLIO_DB_USER=u123456789_portfolio_admin
+PORTFOLIO_DB_PASSWORD=your_secure_admin_password
+PORTFOLIO_DB_NAME=u123456789_portfolio_db
 
-# Portfolio integration
+# Portfolio integration & cache invalidation
 PORTFOLIO_URL=https://imsabbar.com
-PORTFOLIO_REVALIDATE_SECRET=your-random-secret-here
+PORTFOLIO_REVALIDATE_SECRET=your-random-high-entropy-secret
 
 # Notifications
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 RESEND_API_KEY=
 
-# File uploads
+# File uploads (Lead attachments & Assets CDN)
 PORTFOLIO_UPLOAD_PATH=/home/user/uploads/portfolio
 PORTFOLIO_UPLOAD_URL=https://assets.imsabbar.com/portfolio
+
+# Encryption Key for Credential Vault (AES-256-GCM)
+PORTFOLIO_CREDENTIALS_ENCRYPTION_KEY=your-32-byte-hex-key
 ```
 
 ---
