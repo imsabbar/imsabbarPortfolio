@@ -335,6 +335,10 @@ body {
     color 300ms var(--ease-smooth),
     box-shadow 300ms var(--ease-smooth);
 }
+.btn.hidden,
+.btn.\!hidden {
+  display: none !important;
+}
 .btn:active {
   transform: scale(0.97);
 }
