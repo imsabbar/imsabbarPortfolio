@@ -1,11 +1,12 @@
 # imsabbar OS — Portfolio Manager Module
 ## Product Requirements Document (PRD)
-**Version:** 1.4.0  
+**Version:** 1.5.0  
 **Owner:** Ismail Sabbar  
 **Parent App:** imsabbar OS  
 **Target:** Hostinger MySQL database (shared with public portfolio)  
 **Paired PRD:** `IMSABBAR_PORTFOLIO_V2_MASTER_PRD.md` (v3.1.0)  
 
+**Changelog v1.5.0 (2026-08-17):** Added Manageable SEO & Search Engines controls (Google/Bing/Yandex verification tokens, robots indexing switch, meta keywords, OpenGraph overrides), BreadcrumbList rich snippet support, Web App Manifest integration, and AI Search Engine Optimization (llms.txt standard).
 **Changelog v1.4.0 (2026-08-16):** Enhanced cache revalidation contract (Bearer token + tags array), added Dual DB User security guidelines, specified split-screen markdown editor for case study bodies, added 1-click availability quick-toggle on dashboard, added drag-and-drop resume CV uploader, added n8n simulator nodes JSON schema validator, and added live cache revalidation toast feedback.
 **Changelog v1.3.0 (2026-08-13):** Upgraded the module to an immediate-live portfolio control plane with complete business-content coverage, encrypted credentials, authenticated lead operations, additive migrations, audit snapshots, rollback, provider health checks, cache feedback, and explicit Hostinger deployment boundaries. The public portfolio remains read-only.
 **Tech Stack:** Next.js 16 · React 19 · TypeScript 5.7 · Tailwind CSS · shadcn/ui · mysql2 · SWR
@@ -353,6 +354,12 @@ Settings keys:
 - `stats_clients_value`
 - `stats_projects_value`
 - `stats_reliability_value`
+- `google_site_verification` (Google Search Console token)
+- `bing_site_verification` (Bing Webmaster token)
+- `yandex_site_verification` (Yandex Webmaster token)
+- `robots_allow_indexing` (Controls `index, follow` vs `noindex, nofollow`, default `'true'`)
+- `meta_keywords` (Global meta keywords)
+- `default_og_image_url` (Custom OpenGraph preview override)
 
 > **Note:** Stats **labels** (`stats_years_label`, `stats_clients_label`, `stats_projects_label`, `stats_reliability_label`) are NOT settings — they live in the `about` content block's i18n JSON (§4.8), because settings are single-language TEXT and must not hold translatable strings.
 
@@ -763,11 +770,21 @@ Edit `portfolio_settings`:
 
 ### 8.12 Settings (`/portfolio-manager/settings`)
 
-Edit `portfolio_settings`:
+Edit `portfolio_settings` with sub-tabs:
+
+#### Tab A: General & Business Credentials
 - ICE registration number (`003294812000045`)
 - SLA notice
 - Availability status (`online` / `busy` / `offline`)
 - Stats values: `stats_years_value`, `stats_clients_value`, `stats_projects_value`
+
+#### Tab B: SEO & Search Engines
+- **Google Search Console**: Token input (`google_site_verification`) for one-click verification meta tag.
+- **Bing & Yandex Webmaster**: Verification tokens (`bing_site_verification`, `yandex_site_verification`).
+- **Search Engine Indexing Toggle**: Switch for `robots_allow_indexing` (`ON: index, follow` / `OFF: noindex, nofollow` for maintenance/staging).
+- **Meta Keywords**: Tag input for global SEO keywords (`meta_keywords`).
+- **OpenGraph Social Preview Override**: Image URL input (`default_og_image_url`).
+- **AI Search Optimization**: Link to live `/llms.txt` and `/llms-full.txt` endpoints with preview modal.
 
 > Availability **message** is now managed in the Hero editor (§8.2) as per-locale
 > content, not here. Settings must never hold translatable strings.

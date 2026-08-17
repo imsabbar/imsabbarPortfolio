@@ -170,8 +170,9 @@ cp .env.example .env.local
 | `TELEGRAM_CHAT_ID` | Telegram chat ID for admin alerts | `987654321` |
 | `RESEND_API_KEY` | Resend API key for automated client receipts | `re_12345678...` |
 | `RESEND_FROM_EMAIL` | Sender address for auto-reply emails | `Ismail Sabbar <noreply@imsabbar.com>` |
-| `NOTIFICATION_EMAIL` | Admin inbox address | `contact@imsabbar.com` |
 | `NEXT_PUBLIC_SITE_URL` | Canonical public URL | `https://imsabbar.com` |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console site verification token | `your_google_verification_token` |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION` | Bing Webmaster site verification token | `your_bing_verification_token` |
 | `PORTFOLIO_UPLOAD_PATH` | Server directory for lead attachment storage | `/home/user/uploads/portfolio/leads` |
 
 ---

@@ -101,34 +101,67 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     getNextCaseStudy(slug),
   ]);
 
-  const articleSchema = {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://imsabbar.com';
+  const caseStudyTitle = getLocalizedField(caseStudy.title_i18n, caseStudy.title, locale);
+  const caseStudySummary = getLocalizedField(caseStudy.summary_i18n, caseStudy.summary, locale);
+
+  const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: getLocalizedField(caseStudy.title_i18n, caseStudy.title, locale),
-    description: getLocalizedField(caseStudy.summary_i18n, caseStudy.summary, locale),
-    image: caseStudy.image_url || undefined,
-    author: {
-      '@type': 'Person',
-      name: 'Ismail Sabbar',
-      url: 'https://imsabbar.com',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Ismail Sabbar',
-      url: 'https://imsabbar.com',
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://imsabbar.com/${locale}/case-studies/${caseStudy.slug}`,
-    },
-    inLanguage: locale,
+    '@graph': [
+      {
+        '@type': 'TechArticle',
+        '@id': `${siteUrl}/${locale}/case-studies/${caseStudy.slug}#article`,
+        headline: caseStudyTitle,
+        description: caseStudySummary,
+        image: caseStudy.image_url || undefined,
+        author: {
+          '@type': 'Person',
+          name: 'Ismail Sabbar',
+          url: siteUrl,
+        },
+        publisher: {
+          '@type': 'Person',
+          name: 'Ismail Sabbar',
+          url: siteUrl,
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `${siteUrl}/${locale}/case-studies/${caseStudy.slug}`,
+        },
+        inLanguage: locale,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${siteUrl}/${locale}/case-studies/${caseStudy.slug}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: locale === 'ar' ? 'الرئيسية' : locale === 'fr' ? 'Accueil' : 'Home',
+            item: `${siteUrl}/${locale}`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: dict.nav.work || (locale === 'ar' ? 'سجل الأعمال' : locale === 'fr' ? 'Études de cas' : 'Case Studies'),
+            item: `${siteUrl}/${locale}#case-studies`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: caseStudyTitle,
+            item: `${siteUrl}/${locale}/case-studies/${caseStudy.slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <CaseStudyDetail
         dict={dict}

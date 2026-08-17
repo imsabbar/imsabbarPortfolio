@@ -87,3 +87,12 @@ locale, missing `image_url` / `summary`, or when required settings
 4. **Drag-and-Drop Resume Manager**: Provide dedicated PDF dropzones in Settings for `EN`, `FR`, and `AR` CV files.
 5. **n8n Nodes JSON Validator**: Validate `portfolio_case_studies.n8n_nodes_json` structure (`id`, `name`, `type`, `icon`, `status`, `latency`) before database write.
 6. **Dual MySQL User Security**: Use an admin user for `imsabbar OS` (`SELECT, INSERT, UPDATE, DELETE`) while the public portfolio uses a restricted `SELECT + INSERT` user.
+
+## 8. v1.5.0 SEO & Search Engine Management (New in PRD v1.5.0)
+
+1. **Verification Tokens in `portfolio_settings`**:
+   - `google_site_verification`, `bing_site_verification`, `yandex_site_verification`.
+2. **Robots Indexing Switch**:
+   - `robots_allow_indexing` (`true` for `index, follow`; `false` for `noindex, nofollow`).
+3. **Rich Snippets & AI Search**:
+   - The public portfolio generates dynamic `/manifest.webmanifest`, `/llms.txt`, `/llms-full.txt`, and `BreadcrumbList` structured data schemas.

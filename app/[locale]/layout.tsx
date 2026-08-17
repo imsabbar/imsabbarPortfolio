@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     template: '%s | Ismail Sabbar',
   },
   description: 'Specializing in n8n workflow automation, Perfex CRM module engineering, and WordPress/Next.js web builds.',
+  manifest: '/manifest.webmanifest',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -47,6 +48,13 @@ export const metadata: Metadata = {
     ],
     shortcut: '/favicon.svg',
     apple: '/icon',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION || undefined,
+    other: {
+      'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || '',
+    },
   },
 };
 
