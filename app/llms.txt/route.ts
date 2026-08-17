@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
+import { getSiteUrl } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 export const revalidate = 86400; // 24 hours
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://imsabbar.com';
+  const siteUrl = getSiteUrl();
 
   const content = `# Ismail Sabbar — Public Portfolio & Engineering Knowledge Base
 

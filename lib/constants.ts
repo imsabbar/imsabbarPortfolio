@@ -16,10 +16,18 @@
  *   `PortfolioSettings` type instead.
  */
 
+export function getSiteUrl(): string {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (configured && !configured.includes('localhost') && !configured.includes('127.0.0.1')) {
+    return configured.replace(/\/$/, '');
+  }
+  return 'https://imsabbar.com';
+}
+
 export const SITE = {
   name: 'Ismail Sabbar',
   role: 'Full-Stack Developer & Automation Engineer',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://imsabbar.com',
+  url: getSiteUrl(),
 } as const;
 
 /** Localized display name. Arabic uses إسماعيل صبار; FR/EN use the Latin name. */

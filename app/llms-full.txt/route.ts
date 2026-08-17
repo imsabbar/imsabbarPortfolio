@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getAllCaseStudySlugs, getCaseStudyDetail } from '@/lib/sections';
 import { getLocalizedField } from '@/lib/db/helpers';
+import { getSiteUrl } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 export const revalidate = 86400; // 24 hours
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://imsabbar.com';
+  const siteUrl = getSiteUrl();
 
   let caseStudiesMarkdown = '';
   try {

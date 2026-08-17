@@ -13,6 +13,7 @@ import { getDictionary } from '@/lib/get-dictionary';
 import { getCaseStudyDetail, getNextCaseStudy, getAllCaseStudySlugs } from '@/lib/sections';
 import { getLocalizedField } from '@/lib/db/helpers';
 import { CaseStudyDetail } from '@/components/CaseStudyDetail';
+import { getSiteUrl } from '@/lib/constants';
 
 // DB is read at build time — must run on Node.
 export const runtime = 'nodejs';
@@ -101,7 +102,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     getNextCaseStudy(slug),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://imsabbar.com';
+  const siteUrl = getSiteUrl();
   const caseStudyTitle = getLocalizedField(caseStudy.title_i18n, caseStudy.title, locale);
   const caseStudySummary = getLocalizedField(caseStudy.summary_i18n, caseStudy.summary, locale);
 

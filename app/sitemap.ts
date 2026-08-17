@@ -1,19 +1,14 @@
 import type { MetadataRoute } from 'next';
 import { i18n, type Locale } from '@/i18n/config';
 import { getAllCaseStudySlugs } from '@/lib/sections';
-
-function siteUrl(): string {
-  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (configured) return configured.replace(/\/$/, '');
-  return process.env.NODE_ENV === 'production' ? 'https://imsabbar.com' : 'http://localhost:3000';
-}
+import { getSiteUrl } from '@/lib/constants';
 
 function localizedUrl(base: string, locale: Locale, path = ''): string {
   return `${base}/${locale}${path}`;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = siteUrl();
+  const base = getSiteUrl();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of i18n.locales) {
