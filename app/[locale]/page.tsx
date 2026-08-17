@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Specializing in n8n workflow automation, Perfex CRM module engineering, and WordPress/Next.js web builds.';
 
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: {
       canonical: `/${locale}`,

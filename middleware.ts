@@ -24,11 +24,19 @@ function getLocaleFromHeader(request: NextRequest): string {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Ignore static assets, api routes, admin asset files
+  // Ignore static assets, api routes, metadata endpoints, and asset files
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/brand_assets') ||
+    pathname.startsWith('/uploads') ||
+    pathname === '/icon' ||
+    pathname === '/icon.png' ||
+    pathname === '/manifest.webmanifest' ||
+    pathname === '/llms.txt' ||
+    pathname === '/llms-full.txt' ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml' ||
     pathname.includes('.')
   ) {
     return NextResponse.next();

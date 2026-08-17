@@ -1,11 +1,12 @@
 # imsabbar OS — Portfolio Manager Module
 ## Product Requirements Document (PRD)
-**Version:** 1.5.0  
+**Version:** 1.5.1 (Consolidated Master)  
 **Owner:** Ismail Sabbar  
 **Parent App:** imsabbar OS  
 **Target:** Hostinger MySQL database (shared with public portfolio)  
 **Paired PRD:** `IMSABBAR_PORTFOLIO_V2_MASTER_PRD.md` (v3.1.0)  
 
+**Changelog v1.5.1 (2026-08-17 — Consolidated Master):** Merged all audit amendments: synchronized `portfolio_leads` schema (is_read, UTM attribution fields, complete indexes), added concrete DDL for migration/audit/revision tables (§4.11-§4.13), aligned n8n node validator schema to runtime type (`latencyMs`), added robust CSV export & formula injection escaping specs (§11.4.1), specified Lead Inbox search/filters/bulk actions (§8.13.1), added Media Lifecycle orphan cleanup (§10.5), and documented revalidation transaction ordering and retry policies (§13.3.1).
 **Changelog v1.5.0 (2026-08-17):** Added Manageable SEO & Search Engines controls (Google/Bing/Yandex verification tokens, robots indexing switch, meta keywords, OpenGraph overrides), BreadcrumbList rich snippet support, Web App Manifest integration, and AI Search Engine Optimization (llms.txt standard).
 **Changelog v1.4.0 (2026-08-16):** Enhanced cache revalidation contract (Bearer token + tags array), added Dual DB User security guidelines, specified split-screen markdown editor for case study bodies, added 1-click availability quick-toggle on dashboard, added drag-and-drop resume CV uploader, added n8n simulator nodes JSON schema validator, and added live cache revalidation toast feedback.
 **Changelog v1.3.0 (2026-08-13):** Upgraded the module to an immediate-live portfolio control plane with complete business-content coverage, encrypted credentials, authenticated lead operations, additive migrations, audit snapshots, rollback, provider health checks, cache feedback, and explicit Hostinger deployment boundaries. The public portfolio remains read-only.
@@ -385,6 +386,10 @@ CREATE TABLE portfolio_leads (
   attachment_size INT UNSIGNED NULL,
   source_page VARCHAR(255),
   source_type ENUM('form', 'booking', 'whatsapp') DEFAULT 'form',
+  referrer VARCHAR(500),
+  utm_source VARCHAR(100),
+  utm_medium VARCHAR(100),
+  utm_campaign VARCHAR(100),
   ip_hash VARCHAR(64),
   user_agent VARCHAR(255),
   locale VARCHAR(5) NOT NULL DEFAULT 'en',
@@ -400,7 +405,10 @@ CREATE TABLE portfolio_leads (
   INDEX idx_source_type (source_type),
   INDEX idx_leads_email (email),
   INDEX idx_leads_company (company),
-  INDEX idx_leads_locale_date (locale, created_at)
+  INDEX idx_leads_locale_date (locale, created_at),
+  INDEX idx_ip_hash_created (ip_hash, created_at),
+  INDEX idx_leads_created_at (created_at),
+  INDEX idx_leads_utm (utm_source, utm_medium)
 );
 ```
 
@@ -412,6 +420,58 @@ CREATE TABLE portfolio_leads (
 >
 > `is_read` powers the "unread leads" dashboard metric; `internal_notes` supports the
 > notes field; `deleted_at` enables soft deletion instead of hard deletes.
+
+### 4.11 Schema Migrations Tracking
+
+```sql
+CREATE TABLE portfolio_schema_migrations (
+  version VARCHAR(50) PRIMARY KEY,
+  applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  applied_by VARCHAR(255),
+  checksum VARCHAR(64),
+  execution_time_ms INT UNSIGNED,
+  success BOOLEAN DEFAULT TRUE,
+  error_message TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### 4.12 Audit Log
+
+```sql
+CREATE TABLE portfolio_audit_log (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  entity_type VARCHAR(50) NOT NULL,
+  entity_id INT,
+  action VARCHAR(50) NOT NULL,
+  actor VARCHAR(255) NOT NULL,
+  changed_fields JSON,
+  before_snapshot JSON,
+  after_snapshot JSON,
+  ip_address VARCHAR(64),
+  user_agent VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_entity_type_id (entity_type, entity_id),
+  INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+### 4.13 Revision Snapshots
+
+```sql
+CREATE TABLE portfolio_revisions (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  entity_type VARCHAR(50) NOT NULL,
+  entity_id INT NOT NULL,
+  revision_number INT NOT NULL,
+  snapshot JSON NOT NULL,
+  created_by VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  reverted_at TIMESTAMP NULL,
+  reverted_by VARCHAR(255),
+  UNIQUE KEY unique_entity_revision (entity_type, entity_id, revision_number),
+  INDEX idx_entity (entity_type, entity_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
 
 ---
 
@@ -704,7 +764,9 @@ CRUD for `portfolio_case_studies`:
 - Cover image upload (with preview)
 - X-Ray specs JSON editor (architecture, stack[], executionTime, security)
 - **n8n Nodes JSON Schema Validator**:
-  - Validates that `n8n_nodes_json` contains an array of nodes matching `{ id: number, name: string, type: string, icon: string, status: string, latency: string }`.
+  - Validates that `n8n_nodes_json` contains an array of nodes matching the public type declared in `types/portfolio.ts`:
+    `{ id: number, name: string, type: 'trigger' | 'action' | 'condition' | 'output', description: string, latencyMs: number, samplePayload?: object }`.
+  - Rejects any node missing `id`, `name`, `type`, `description`, or `latencyMs`.
   - Displays a visual flowchart node preview in the admin modal to verify the simulation sequence.
 - **Split-Screen Markdown Editor (`body_i18n`)**:
   - Live side-by-side editing per locale via `I18nTabs` with real-time markdown preview styled to match the public portfolio's typography.
@@ -794,13 +856,22 @@ Edit `portfolio_settings` with sub-tabs:
 ### 8.13 Leads (`/portfolio-manager/leads`)
 
 Read/update `portfolio_leads`:
-- Table with filters by status
-- Search by name/email/company
+- Table with filters by status, source_type, locale, date range, unread status
+- Search by name/email/company/message
 - View lead details in slide-over or dialog
-- Update status dropdown
-- Delete/archive lead
-- Export to CSV
+- Update status dropdown (`new`, `contacted`, `qualified`, `converted`, `archived`)
+- Delete/archive lead (soft delete via `deleted_at`)
+- Export to CSV (§11.4.1)
 - View/download attachment
+
+#### 8.13.1 Lead Inbox Behavior
+- **Default Sort**: `created_at DESC`.
+- **Pagination**: 25/50/100 rows per page, persisted in URL query params.
+- **Search Scope**: `name`, `email`, `company`, `message` (case-insensitive `LIKE`).
+- **Attribution Display**: Show referrer domain and UTM parameters (`utm_source`, `utm_medium`, `utm_campaign`) if present.
+- **Bulk Actions**: Mark selected read/unread, change status, soft delete.
+- **Unread Counter**: Dashboard "unread leads" count queries `is_read = FALSE AND deleted_at IS NULL`.
+- **Attachment Download**: Authenticated OS-only route streaming the file from storage with path-containment validation. Never expose raw server paths in URLs.
 
 ### 8.14 Trust Bar (`/portfolio-manager/trust-bar`)
 
@@ -917,6 +988,12 @@ Or if stored on Hostinger, a signed/protected URL pattern.
 
 **Decision (v1.2.0):** public assets (case-study covers, client logos) are served from a **Hostinger static subdomain** (`assets.imsabbar.com`) fronted by **Cloudflare** with long-cache headers. This module uploads files to that subdomain's storage and saves the full public URL in `image_url` / `logo_url`. The public portfolio allows this host via `images.remotePatterns`. Lead attachments are NEVER public — they stay in the protected uploads path and are viewable only from the OS leads UI.
 
+### 10.5 Media Lifecycle and Orphan Cleanup
+
+1. **Upload & Optimization**: OS uploads image assets to configured CDN storage, automatically converting to WebP (case study covers max 1920px wide; logos max 512px wide), and writes the CDN URL to MySQL.
+2. **Replacement Strategy**: When an existing image/logo is replaced, the old URL is marked as an orphan candidate but not purged immediately, allowing active ISR caches to expire smoothly.
+3. **Orphan Cleanup Routine**: Periodic or on-demand orphan scans verify which files on storage/CDN are unreferenced by any MySQL row before purging.
+
 ---
 
 ## 11. Lead Management
@@ -924,11 +1001,11 @@ Or if stored on Hostinger, a signed/protected URL pattern.
 ### 11.1 Lead Sources
 
 The portfolio can create leads from:
-- Contact form
-- Cal.com booking
-- WhatsApp quick-chat clicks
+- Contact form (multi-step wizard with ROI prefill support)
+- Cal.com booking modal
+- WhatsApp quick-chat click attribution
 
-Store `source_type` accordingly.
+Store `source_type`, `source_page`, and attribution fields (`referrer`, `utm_source`, `utm_medium`, `utm_campaign`) accordingly.
 
 ### 11.2 Lead Notifications
 
@@ -953,6 +1030,15 @@ Allow CSV export with filters:
 - Date range
 - Status
 - Source type
+
+#### 11.4.1 CSV Export Specification
+- **Columns (in exact order)**: `id`, `created_at`, `source_type`, `status`, `name`, `email`, `phone`, `company`, `country`, `currency`, `service_interest`, `estimated_budget`, `timeline`, `source_page`, `referrer`, `utm_source`, `utm_medium`, `utm_campaign`, `locale`, `ip_hash`, `user_agent`, `consent_at`, `privacy_policy_version`, `calculated_roi_savings`, `attachment_original_name`, `attachment_mime`, `attachment_size`, `internal_notes`.
+- **Date/Time Format**: ISO 8601 UTC (`YYYY-MM-DDTHH:mm:ss.sssZ`).
+- **Header Row**: Localized column names using current OS interface language.
+- **Excel BOM**: Include UTF-8 Byte Order Mark (`\uFEFF`) at the beginning of file content for seamless Excel opening without character corruption.
+- **Formula Injection Defense (CSV Injection)**: Escape any cell beginning with `=`, `+`, `-`, `@`, `\t`, or `\r` by prefixing with a single quote (`'`).
+- **Filename Pattern**: `imsabbar-leads-{YYYY-MM-DD}-{status}-{locale}.csv`.
+- **Response Headers**: `Content-Type: text/csv; charset=utf-8` and `Content-Disposition: attachment; filename="..."`.
 
 ---
 
@@ -1060,6 +1146,12 @@ export async function revalidatePortfolio(tag: string | string[]): Promise<{ ok:
 ```
 
 Call `await revalidatePortfolio('portfolio_plans')` after plan changes, etc. Always display a visual toast notification to the admin showing the result of the cache revalidation (e.g. `✓ Saved & Cache Refreshed (tag: portfolio_plans)`).
+
+#### 13.3.1 Revalidation Ordering & Failure Semantics
+1. **Commit Transaction First**: Always execute and commit the MySQL write before invoking `/api/revalidate`.
+2. **Tag Batching**: For multi-entity mutations, collect all affected cache tags, deduplicate them, and send a single HTTP POST containing the array.
+3. **Retry Strategy**: On network timeouts or 5xx responses, retry up to 2 times with exponential backoff (1s, 3s).
+4. **Failure Gracefulness**: If revalidation fails after retries, show a warning toast: `✓ Saved to Database. Cache refresh delayed — will update automatically within 1 hour.` Never roll back a committed database write due to cache revalidation network timeouts.
 
 ### 13.4 Local Testing
 

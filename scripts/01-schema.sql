@@ -43,6 +43,7 @@ CREATE TABLE portfolio_tech_stack (
   category_i18n JSON, proficiency INT NOT NULL CHECK (proficiency BETWEEN 1 AND 100), icon VARCHAR(255) NOT NULL,
   is_featured BOOLEAN DEFAULT TRUE, is_active BOOLEAN DEFAULT TRUE, sort_order INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_name (name),
   INDEX idx_featured_sort (is_featured, sort_order), INDEX idx_active_sort (is_active, sort_order)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -95,13 +96,16 @@ CREATE TABLE portfolio_leads (
   company VARCHAR(255), country VARCHAR(100), currency VARCHAR(10) DEFAULT 'USD', service_interest VARCHAR(100),
   estimated_budget DECIMAL(10,2), timeline VARCHAR(100), calculated_roi_savings TEXT, message TEXT,
   attachment_path VARCHAR(500), source_page VARCHAR(255), source_type ENUM('form','booking','whatsapp') DEFAULT 'form',
+  referrer VARCHAR(500), utm_source VARCHAR(100), utm_medium VARCHAR(100), utm_campaign VARCHAR(100),
   ip_hash VARCHAR(64), user_agent VARCHAR(255), locale VARCHAR(5) NOT NULL DEFAULT 'en', consent_at TIMESTAMP NULL,
   privacy_policy_version VARCHAR(40) NOT NULL DEFAULT '2026-08-13', attachment_original_name VARCHAR(255),
-  attachment_mime VARCHAR(100), attachment_size INT UNSIGNED, status ENUM('new','contacted','qualified','converted','archived') DEFAULT 'new',
+  attachment_mime VARCHAR(100), attachment_size INT UNSIGNED,
+  is_read BOOLEAN DEFAULT FALSE, status ENUM('new','contacted','qualified','converted','archived') DEFAULT 'new',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP NULL, internal_notes TEXT NULL, INDEX idx_status_date (status, created_at), INDEX idx_source_type (source_type),
+  deleted_at TIMESTAMP NULL, internal_notes TEXT NULL,
+  INDEX idx_status_date (status, created_at), INDEX idx_source_type (source_type),
   INDEX idx_ip_hash_created (ip_hash, created_at), INDEX idx_leads_locale_date (locale, created_at), INDEX idx_leads_email (email),
-  INDEX idx_leads_company (company), INDEX idx_leads_created_at (created_at)
+  INDEX idx_leads_company (company), INDEX idx_leads_created_at (created_at), INDEX idx_leads_utm (utm_source, utm_medium)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO portfolio_settings (setting_key, setting_value) VALUES

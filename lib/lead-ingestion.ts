@@ -70,9 +70,10 @@ export async function insertFormLead(input: LeadInput, ipHash: string, userAgent
   const result = await execute(
     `INSERT INTO portfolio_leads
       (name, email, phone, company, country, currency, service_interest, estimated_budget,
-       timeline, calculated_roi_savings, message, source_page, source_type, ip_hash, user_agent,
+       timeline, calculated_roi_savings, message, source_page, source_type, referrer,
+       utm_source, utm_medium, utm_campaign, ip_hash, user_agent,
        locale, consent_at, privacy_policy_version)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'form', ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'form', ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       input.name,
       input.email,
@@ -86,6 +87,10 @@ export async function insertFormLead(input: LeadInput, ipHash: string, userAgent
       nullable(input.calculated_roi_savings),
       nullable(input.message),
       input.source_page,
+      nullable(input.referrer),
+      nullable(input.utm_source),
+      nullable(input.utm_medium),
+      nullable(input.utm_campaign),
       ipHash,
       userAgent,
       input.locale,

@@ -37,6 +37,10 @@ The public portfolio writes and the OS should expect:
 - `locale VARCHAR(5) NOT NULL DEFAULT 'en'`
 - `consent_at TIMESTAMP NULL`
 - `privacy_policy_version VARCHAR(40) NOT NULL DEFAULT '2026-08-13'`
+- `referrer VARCHAR(500) NULL`
+- `utm_source VARCHAR(100) NULL`
+- `utm_medium VARCHAR(100) NULL`
+- `utm_campaign VARCHAR(100) NULL`
 - `attachment_original_name VARCHAR(255) NULL`
 - `attachment_mime VARCHAR(100) NULL`
 - `attachment_size INT UNSIGNED NULL`
@@ -47,7 +51,7 @@ The public portfolio writes and the OS should expect:
 The OS `portfolio_leads` schema (§4.10) has been updated to include these.
 Use `is_read` for the "unread leads" dashboard metric, `internal_notes` for lead
 notes, and `deleted_at` for soft deletion. Soft deletion, audit/revision tables,
-and migration tracking are also part of the Master PRD v3.2 contract — see
+and migration tracking are also part of the Master PRD v1.5.1 contract — see
 `scripts/01-schema.sql`.
 
 ## 4. Cache tags
@@ -78,17 +82,17 @@ The OS should warn when a featured case study is missing `body_i18n` for any
 locale, missing `image_url` / `summary`, or when required settings
 (`contact_email`, `ice_registration_number`, `scheduling_link`) are absent.
 
-## 7. v1.4.0 Control Plane Enhancements (Mandatory for OS Agent)
+## 7. Control Plane Enhancements (Mandatory for OS Agent)
 
 1. **Revalidation Response Feedback**: Always show a visual Toast confirmation upon saving:
    `✓ Saved to Database & Public Cache Refreshed (tag: portfolio_*)`.
 2. **Dashboard 1-Click Availability Toggle**: Implement an immediate 1-click switch on the OS Dashboard header for `Online` (Green) / `Busy` (Amber) / `Offline` (Gray).
 3. **Split-Screen Markdown Editor**: For `portfolio_case_studies.body_i18n`, provide side-by-side editing with a live markdown preview matching `react-markdown` styling.
 4. **Drag-and-Drop Resume Manager**: Provide dedicated PDF dropzones in Settings for `EN`, `FR`, and `AR` CV files.
-5. **n8n Nodes JSON Validator**: Validate `portfolio_case_studies.n8n_nodes_json` structure (`id`, `name`, `type`, `icon`, `status`, `latency`) before database write.
+5. **n8n Nodes JSON Validator**: Validate `portfolio_case_studies.n8n_nodes_json` structure against `{ id: number, name: string, type: string, description: string, latencyMs: number, samplePayload?: object }` before database write.
 6. **Dual MySQL User Security**: Use an admin user for `imsabbar OS` (`SELECT, INSERT, UPDATE, DELETE`) while the public portfolio uses a restricted `SELECT + INSERT` user.
 
-## 8. v1.5.0 SEO & Search Engine Management (New in PRD v1.5.0)
+## 8. v1.5.0 SEO & Search Engine Management
 
 1. **Verification Tokens in `portfolio_settings`**:
    - `google_site_verification`, `bing_site_verification`, `yandex_site_verification`.
@@ -96,3 +100,10 @@ locale, missing `image_url` / `summary`, or when required settings
    - `robots_allow_indexing` (`true` for `index, follow`; `false` for `noindex, nofollow`).
 3. **Rich Snippets & AI Search**:
    - The public portfolio generates dynamic `/manifest.webmanifest`, `/llms.txt`, `/llms-full.txt`, and `BreadcrumbList` structured data schemas.
+
+## 9. v1.5.1 Inbox, CSV & Lifecycle Enhancements
+
+1. **Lead Inbox (§8.13.1)**: Table with status/date/locale filters, search across name/email/company/message, unread badge counter, and authenticated attachment streaming.
+2. **Formula-Safe CSV Export (§11.4.1)**: Excel BOM (`\uFEFF`), ISO 8601 UTC timestamps, and single-quote escaping for `=, +, -, @, \t, \r` characters.
+3. **Media Lifecycle & Orphan Cleanup (§10.5)**: Convert covers/logos to WebP on upload and run periodic unreferenced file cleanup.
+4. **Revalidation Transaction Ordering (§13.3.1)**: Always commit MySQL transaction before sending the cache purge request.

@@ -87,6 +87,7 @@ export function RoiCalculator({ dict, initialCurrency = 'USD' }: RoiCalculatorPr
     };
     try {
       window.sessionStorage.setItem(ROI_SESSION_KEY, JSON.stringify(estimate));
+      window.dispatchEvent(new CustomEvent('roi_estimate_ready', { detail: estimate }));
       trackEvent('roi_calculated', { currency, annual_savings: annualCostSaved });
     } catch {
       // sessionStorage can be disabled; silently skip pre-fill.

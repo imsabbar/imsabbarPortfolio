@@ -1,13 +1,13 @@
 {
   "app/[locale]/case-studies/[slug]/page.tsx": {
-    "mtime": 1786845034.336545,
-    "ast_hash": "2c6d2c316d85292d2f68681c4d7c52cd",
-    "semantic_hash": "2c6d2c316d85292d2f68681c4d7c52cd"
+    "mtime": 1786925341.7740724,
+    "ast_hash": "97df07b551e57d4019a4554b39a6a22d",
+    "semantic_hash": ""
   },
   "app/[locale]/layout.tsx": {
-    "mtime": 1786813759.163232,
-    "ast_hash": "8cf403039edf3bc66067a74e4eea2600",
-    "semantic_hash": "8cf403039edf3bc66067a74e4eea2600"
+    "mtime": 1786924744.091197,
+    "ast_hash": "36f15c856da056627202b5e256032083",
+    "semantic_hash": ""
   },
   "app/[locale]/not-found.tsx": {
     "mtime": 1786653955.9053633,
@@ -205,9 +205,9 @@
     "semantic_hash": "5f8dd5814883edec405ad5e323d98d68"
   },
   "components/Navbar.tsx": {
-    "mtime": 1786845595.9569974,
-    "ast_hash": "7d6b626948e8b4900122ee89a29047b2",
-    "semantic_hash": "7d6b626948e8b4900122ee89a29047b2"
+    "mtime": 1786849179.9661248,
+    "ast_hash": "5d236bbf980b88ea3ddfa8fe444f39ce",
+    "semantic_hash": ""
   },
   "components/NotFoundClient.tsx": {
     "mtime": 1786656598.874173,
@@ -301,18 +301,18 @@
   },
   "dictionaries/ar.json": {
     "mtime": 1786656322.1478643,
-    "ast_hash": "1b728234af9fa0479fecb48060349ab6",
-    "semantic_hash": "1b728234af9fa0479fecb48060349ab6"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "dictionaries/en.json": {
     "mtime": 1786656322.1499577,
-    "ast_hash": "a936175240786fdb4d29788f2b34abfb",
-    "semantic_hash": "a936175240786fdb4d29788f2b34abfb"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "dictionaries/fr.json": {
     "mtime": 1786656322.1478643,
-    "ast_hash": "43ff8a7c03f222774248e59d17c2b854",
-    "semantic_hash": "43ff8a7c03f222774248e59d17c2b854"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "hooks/useRevealOnView.ts": {
     "mtime": 1786566392.6859193,
@@ -501,13 +501,13 @@
   },
   "scripts/01-schema.sql": {
     "mtime": 1786639746.4699218,
-    "ast_hash": "db2e037b23c884327df5a6c049b253c1",
-    "semantic_hash": "db2e037b23c884327df5a6c049b253c1"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "scripts/02-seed-data.sql": {
     "mtime": 1786667852.0974042,
-    "ast_hash": "bfabc6f397bab6094ae18a92f8199e0c",
-    "semantic_hash": "bfabc6f397bab6094ae18a92f8199e0c"
+    "ast_hash": "",
+    "semantic_hash": ""
   },
   "tsconfig.json": {
     "mtime": 1785883420.5656717,
@@ -523,5 +523,170 @@
     "mtime": 1786731068.9576,
     "ast_hash": "4cca3cc273b51eacd31288987717aae9",
     "semantic_hash": "4cca3cc273b51eacd31288987717aae9"
+  },
+  "app/llms-full.txt/route.ts": {
+    "mtime": 1786924857.2975802,
+    "ast_hash": "ebf9f8d8ff0e8199b1491426a14d5f04",
+    "semantic_hash": ""
+  },
+  "app/llms.txt/route.ts": {
+    "mtime": 1786924835.8689704,
+    "ast_hash": "b65f22adaccddfb4a83cad0ee398c1a7",
+    "semantic_hash": ""
+  },
+  "app/manifest.ts": {
+    "mtime": 1786924805.3764455,
+    "ast_hash": "9b9a999e67adeac1d7681c7676c2b508",
+    "semantic_hash": ""
+  },
+  ".agents/rules/graphify.md": {
+    "mtime": 1786846355.9378679,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": ""
+  },
+  ".agents/workflows/graphify.md": {
+    "mtime": 1786846355.9418669,
+    "ast_hash": "a831cf3669f1e6ab85d8a80ebe655f99",
+    "semantic_hash": ""
+  },
+  "ARCHITECTURE.md": {
+    "mtime": 1786847932.4261389,
+    "ast_hash": "06e470d5cd098e6b812d9f8f4ac54000",
+    "semantic_hash": ""
+  },
+  "CONTRACT-NOTES.md": {
+    "mtime": 1786925073.6314964,
+    "ast_hash": "7977d81ee639c1d612463a6650c1a1d1",
+    "semantic_hash": ""
+  },
+  "IMSABBAR_OS_PORTFOLIO_MANAGER_MODULE_PRD.md": {
+    "mtime": 1786925032.3569868,
+    "ast_hash": "c798461db3f535acda75f5ec1104a1a7",
+    "semantic_hash": ""
+  },
+  "PHASES.md": {
+    "mtime": 1786586199.615441,
+    "ast_hash": "10ed7128e013f9bd32968a3d9fd1f9c0",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1786925112.668496,
+    "ast_hash": "b1bca940cc42021e28be12097f461f59",
+    "semantic_hash": ""
+  },
+  "content/privacy.ar.md": {
+    "mtime": 1786654185.4857128,
+    "ast_hash": "ebe91cd418502b8fe05029ecffec4c57",
+    "semantic_hash": ""
+  },
+  "content/privacy.en.md": {
+    "mtime": 1786654185.4936235,
+    "ast_hash": "2badb142f3487aa387bfce0d3a4ef77c",
+    "semantic_hash": ""
+  },
+  "content/privacy.fr.md": {
+    "mtime": 1786654185.4857128,
+    "ast_hash": "801b29e650181b847f11d71a31a6204e",
+    "semantic_hash": ""
+  },
+  "public/files/imsabbar_MEN_V25.9.pdf": {
+    "mtime": 1786234014.0267038,
+    "ast_hash": "5b5ebcf732f328f2cb7326f5de91b8ed",
+    "semantic_hash": ""
+  },
+  "public/files/imsabbar_MFR_V25.9.pdf": {
+    "mtime": 1786234014.0339892,
+    "ast_hash": "5b07b90f629f75d689d56d7e77696c5b",
+    "semantic_hash": ""
+  },
+  "app/icon.png": {
+    "mtime": 1786230378.4373684,
+    "ast_hash": "9eecc7bf0a555cc261fb1f88e84f8c30",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-architect-workstation.webp": {
+    "mtime": 1785806191.809161,
+    "ast_hash": "0cc2c981eb4683da472475e285c18e04",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-b2b-executive-headshot.webp": {
+    "mtime": 1785806099.01324,
+    "ast_hash": "7ccf4a1b84a5acb2f4b6d1fa5397fe67",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-consultant-studio-portrait.webp": {
+    "mtime": 1785805925.078375,
+    "ast_hash": "658b3c00322885b56d140936e0f92d10",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-editorial-sideview-portrait.webp": {
+    "mtime": 1785862663.366308,
+    "ast_hash": "2adbdaf6fca42a586de69fa4b94d903a",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-hero-candid-window-portrait.webp": {
+    "mtime": 1785805871.3030984,
+    "ast_hash": "8a0f6d9b3d60741cfe99d7ebaae1b3eb",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/ismail-sabbar-hero-visionary-portrait.webp": {
+    "mtime": 1785805393.8276582,
+    "ast_hash": "383c25b89ecd36ae50e594ab1cca24b7",
+    "semantic_hash": ""
+  },
+  "public/brand_assets/sabbar-ismail-shoot.webp": {
+    "mtime": 1785872212.44573,
+    "ast_hash": "5dc244c41297a29411a49b2a0cc48ff2",
+    "semantic_hash": ""
+  },
+  "public/favicon.svg": {
+    "mtime": 1786761698.1996856,
+    "ast_hash": "0e7dc4d69a5fbd61b8bdd0538bf8975c",
+    "semantic_hash": ""
+  },
+  "public/images/data1.png": {
+    "mtime": 1786234014.055809,
+    "ast_hash": "69c1de98bd3f86020f8db5e931b46e04",
+    "semantic_hash": ""
+  },
+  "public/images/data2.jpg": {
+    "mtime": 1786234014.0578568,
+    "ast_hash": "b30dca4dba947ddc7bb0d190845b91a3",
+    "semantic_hash": ""
+  },
+  "public/images/digiprod_thumbnail.jpg": {
+    "mtime": 1786234014.1058288,
+    "ast_hash": "7cc9fcfc3b3b8c0229b8d2e2a488a3c3",
+    "semantic_hash": ""
+  },
+  "public/images/imsabbarFav.png": {
+    "mtime": 1786234014.1587913,
+    "ast_hash": "e0e6677674f4400d63ad3a24c890e914",
+    "semantic_hash": ""
+  },
+  "public/images/jana_thumbnail.jpg": {
+    "mtime": 1786234014.1620474,
+    "ast_hash": "522201f64889e752a6babdee1d488ec6",
+    "semantic_hash": ""
+  },
+  "public/images/marketing_portfolio.png": {
+    "mtime": 1786234014.1752377,
+    "ast_hash": "16d88ba3e8d4552d530cae5e4adaec2d",
+    "semantic_hash": ""
+  },
+  "public/images/marketing_thumbnail.jpg": {
+    "mtime": 1786234014.1786075,
+    "ast_hash": "da561ea3cc7f859f061e4580f6b9aafb",
+    "semantic_hash": ""
+  },
+  "public/images/pso-thumbnail.jpg": {
+    "mtime": 1786234014.2508378,
+    "ast_hash": "9dd45ea91cfd6c979ff82ce4322a590f",
+    "semantic_hash": ""
+  },
+  "public/images/unbranded_thumbnail.jpg": {
+    "mtime": 1786234014.2566273,
+    "ast_hash": "b4c16c378994d94d52aa29cc02fb7f15",
+    "semantic_hash": ""
   }
 }

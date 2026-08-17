@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { getAllCaseStudySlugs, getCaseStudyDetail } from '@/lib/sections';
+import { getLocalizedField } from '@/lib/db/helpers';
 import { getSiteUrl } from '@/lib/constants';
 
 export const runtime = 'nodejs';
@@ -6,6 +8,21 @@ export const revalidate = 86400; // 24 hours
 
 export async function GET() {
   const siteUrl = getSiteUrl();
+
+  let caseStudiesBullets = '';
+  try {
+    const slugs = await getAllCaseStudySlugs();
+    for (const slug of slugs) {
+      const cs = await getCaseStudyDetail(slug);
+      if (cs) {
+        const title = getLocalizedField(cs.title_i18n, cs.title, 'en');
+        const summary = getLocalizedField(cs.summary_i18n, cs.summary, 'en');
+        caseStudiesBullets += `- [${title}](${siteUrl}/en/case-studies/${slug}): ${summary}\n`;
+      }
+    }
+  } catch (e) {
+    console.warn('[llms.txt] case studies fetch failed', e);
+  }
 
   const content = `# Ismail Sabbar — Public Portfolio & Engineering Knowledge Base
 
@@ -24,9 +41,7 @@ export async function GET() {
 - [Full Technical Profile](${siteUrl}/llms-full.txt): Complete case study list, tech stack details, and enterprise SLA terms.
 
 ## Verified Production Case Studies
-- [Automated Multi-CRM Lead Engine](${siteUrl}/en/case-studies/janna-puzzle): 14-node n8n workflow syncing webhook leads to Perfex CRM and Google Sheets with instant Telegram alerts. Saved 120 hrs/month.
-- [Real-Time Client Invoicing Automation](${siteUrl}/en/case-studies/digiprod): Perfex CRM automated invoicing pipeline with PDF generation and email dispatch. 99.8% on-time billing.
-- [Enterprise Support SLA Dispatcher](${siteUrl}/en/case-studies/pso): Priority ticket routing automation with escalation alerts and automated SLA tracking.
+${caseStudiesBullets || `- [Janna Puzzle](${siteUrl}/en/case-studies/janna-puzzle): A playful brand web experience built for engagement and speed.\n- [Digiprod](${siteUrl}/en/case-studies/digiprod): Production client web application.`}
 
 ## Contact & Direct Booking
 - **Official Website**: ${siteUrl}

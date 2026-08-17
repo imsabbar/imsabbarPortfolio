@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { Dictionary } from '@/types/dictionary';
 import type { Locale } from '@/i18n/config';
 import type { PortfolioSettings } from '@/types/portfolio';
 import { Modal } from '@/components/ui/Modal';
 import { bookingProjectTypes, bookingBudgetRanges } from '@/lib/sample-data';
-import { TurnstileWidget } from '@/components/TurnstileWidget';
+import { TurnstileWidget, type TurnstileWidgetHandle } from '@/components/TurnstileWidget';
 import { trackEvent, trackWhatsAppClick } from '@/lib/analytics';
 import { whatsappUrl } from '@/lib/constants';
 import { CalEmbed } from '@/components/CalEmbed';
@@ -30,6 +30,7 @@ export function BookingGateModal({ isOpen, onClose, dict, locale, settings }: Bo
   const [schedulerOpen, setSchedulerOpen] = useState(false);
   const [schedulerError, setSchedulerError] = useState(false);
   const [schedulerReady, setSchedulerReady] = useState(false);
+  const turnstileRef = useRef<TurnstileWidgetHandle>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -82,6 +83,7 @@ export function BookingGateModal({ isOpen, onClose, dict, locale, settings }: Bo
       if (!response.ok || !data.success) {
         setStatus('error');
         setError(data.error?.message || dict.booking.booking_error);
+        turnstileRef.current?.reset();
         return;
       }
       trackEvent('booking_gate_completed', { locale, project_type: projectType, budget_range: budgetRange });
@@ -94,6 +96,7 @@ export function BookingGateModal({ isOpen, onClose, dict, locale, settings }: Bo
     } catch {
       setStatus('error');
       setError(dict.booking.booking_error);
+      turnstileRef.current?.reset();
     }
   };
 
@@ -117,7 +120,7 @@ export function BookingGateModal({ isOpen, onClose, dict, locale, settings }: Bo
 
           {step === 2 && <div className="space-y-4"><label className="block text-xs font-mono text-[var(--color-text-muted)]">{dict.booking.step_budget}</label><div className="space-y-2">{bookingBudgetRanges.map(({ key, dictKey }) => { const label = dict.booking[dictKey]; return <button key={key} type="button" onClick={() => setBudgetRange(key)} className={`w-full p-3 rounded-xl text-start font-mono text-xs border transition-colors ${budgetRange === key ? 'border-[var(--color-accent-primary)] bg-cyan-500/10 text-[var(--color-text)] font-semibold' : 'border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text-muted)]'}`}>{label}</button>; })}</div></div>}
 
-          {step === 3 && <div className="space-y-4"><p className="font-body text-xs text-[var(--color-text-muted)]">{dict.booking.step_confirm}</p><div className="p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-xs font-mono space-y-1 text-start"><p>{dict.booking.project_label}: <span className="text-[var(--color-text)] font-semibold">{projectType ? dict.booking[`type_${projectType}` as keyof typeof dict.booking] : '—'}</span></p><p>{dict.booking.budget_label}: <span className="text-[var(--color-text)] font-semibold">{budgetRange ? dict.booking[`budget_${budgetRange}` as keyof typeof dict.booking] : '—'}</span></p></div><p className="text-[10px] font-mono text-[var(--color-text-muted)]">{dict.booking.turnstile_label}</p><TurnstileWidget onToken={handleTurnstileToken} onError={() => setError(dict.booking.turnstile_required)} />{error && <p role="alert" className="text-xs text-red-300">{error}</p>}</div>}
+          {step === 3 && <div className="space-y-4"><p className="font-body text-xs text-[var(--color-text-muted)]">{dict.booking.step_confirm}</p><div className="p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] text-xs font-mono space-y-1 text-start"><p>{dict.booking.project_label}: <span className="text-[var(--color-text)] font-semibold">{projectType ? dict.booking[`type_${projectType}` as keyof typeof dict.booking] : '—'}</span></p><p>{dict.booking.budget_label}: <span className="text-[var(--color-text)] font-semibold">{budgetRange ? dict.booking[`budget_${budgetRange}` as keyof typeof dict.booking] : '—'}</span></p></div><p className="text-[10px] font-mono text-[var(--color-text-muted)]">{dict.booking.turnstile_label}</p><TurnstileWidget ref={turnstileRef} onToken={handleTurnstileToken} onError={() => setError(dict.booking.turnstile_required)} />{error && <p role="alert" className="text-xs text-red-300">{error}</p>}</div>}
 
           {status === 'error' && error && <p role="alert" className="text-xs text-red-300">{error}</p>}
           <button type="button" onClick={() => { if (step < 3) setStep((current) => current + 1); else void submitBooking(); }} disabled={(step === 1 && !projectType) || (step === 2 && !budgetRange) || status === 'saving'} className="w-full btn btn-primary">{status === 'saving' ? dict.booking.saving : step < 3 ? dict.booking.continue : dict.booking.confirm}</button>

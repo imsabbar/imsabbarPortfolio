@@ -18,7 +18,7 @@ import {
   DocumentIcon,
   ArrowRightIcon,
 } from '@/components/icons';
-import { TurnstileWidget } from '@/components/TurnstileWidget';
+import { TurnstileWidget, type TurnstileWidgetHandle } from '@/components/TurnstileWidget';
 import { ROI_SESSION_KEY, type RoiEstimate } from '@/components/RoiCalculator';
 import { trackEvent, trackWhatsAppClick } from '@/lib/analytics';
 import { getLocalizedField } from '@/lib/db/helpers';
@@ -130,37 +130,71 @@ export function LeadForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consent, setConsent] = useState(false);
   const [hasRoiEstimate, setHasRoiEstimate] = useState(false);
+  const [attribution, setAttribution] = useState<{
+    referrer?: string;
+    utmSource?: string;
+    utmMedium?: string;
+    utmCampaign?: string;
+  }>({});
   const fieldRefs = useRef<Record<string, HTMLElement | null>>({});
+  const turnstileRef = useRef<TurnstileWidgetHandle>(null);
 
   useEffect(() => {
     setFormStartTime(Date.now());
-    try {
-      const raw = window.sessionStorage.getItem(ROI_SESSION_KEY);
-      if (!raw) return;
-      const parsed: unknown = JSON.parse(raw);
-      if (!isRoiEstimate(parsed)) {
-        window.sessionStorage.removeItem(ROI_SESSION_KEY);
-        return;
-      }
+
+    // Capture UTM parameters & Referrer on mount
+    if (typeof window !== 'undefined') {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        setAttribution({
+          referrer: document.referrer || undefined,
+          utmSource: params.get('utm_source') || undefined,
+          utmMedium: params.get('utm_medium') || undefined,
+          utmCampaign: params.get('utm_campaign') || undefined,
+        });
+      } catch {}
+    }
+
+    const applyEstimate = (estimate: unknown) => {
+      if (!isRoiEstimate(estimate)) return;
       const fmt = (n: number) => n.toLocaleString();
       const filled = dict.roi.prefill_template
-        .replace('{team_size}', String(parsed.teamSize))
-        .replace('{hours_per_week}', String(parsed.hoursPerWeek))
-        .replace('{currency}', parsed.currency)
-        .replace('{monthly_cost}', fmt(parsed.monthlyCostSaved))
-        .replace('{annual_cost}', fmt(parsed.annualCostSaved));
+        .replace('{team_size}', String(estimate.teamSize))
+        .replace('{hours_per_week}', String(estimate.hoursPerWeek))
+        .replace('{currency}', estimate.currency)
+        .replace('{monthly_cost}', fmt(estimate.monthlyCostSaved))
+        .replace('{annual_cost}', fmt(estimate.annualCostSaved));
 
       setValues((prev) => ({
         ...prev,
-        currency: parsed.currency,
+        currency: estimate.currency,
         message: filled,
-        calculatedRoiSavings: String(parsed.annualCostSaved),
+        calculatedRoiSavings: String(estimate.annualCostSaved),
       }));
       setHasRoiEstimate(true);
-      window.sessionStorage.removeItem(ROI_SESSION_KEY);
-    } catch {
-      // sessionStorage may be unavailable
-    }
+    };
+
+    // Check sessionStorage on initial load
+    try {
+      const raw = window.sessionStorage.getItem(ROI_SESSION_KEY);
+      if (raw) {
+        applyEstimate(JSON.parse(raw));
+        window.sessionStorage.removeItem(ROI_SESSION_KEY);
+      }
+    } catch {}
+
+    // Listen to real-time custom event when user clicks ROI CTA
+    const handleRoiEvent = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail) {
+        applyEstimate(customEvent.detail);
+      }
+    };
+
+    window.addEventListener('roi_estimate_ready', handleRoiEvent);
+    return () => {
+      window.removeEventListener('roi_estimate_ready', handleRoiEvent);
+    };
   }, [dict.roi.prefill_template]);
 
   const update = (key: keyof FormValues, value: string) => {
@@ -237,6 +271,10 @@ export function LeadForm({
     payload.set('honeypot', honeypot);
     payload.set('form_start_time', String(formStartTime));
     if (attachment) payload.set('attachment', attachment);
+    if (attribution.referrer) payload.set('referrer', attribution.referrer);
+    if (attribution.utmSource) payload.set('utm_source', attribution.utmSource);
+    if (attribution.utmMedium) payload.set('utm_medium', attribution.utmMedium);
+    if (attribution.utmCampaign) payload.set('utm_campaign', attribution.utmCampaign);
 
     try {
       const response = await fetch('/api/lead', { method: 'POST', body: payload });
@@ -252,10 +290,12 @@ export function LeadForm({
         const message = typeof data.error === 'string' ? data.error : data.error?.message;
         setStatusType('error');
         setStatusMsg(message || dict.forms.states.error_body);
+        turnstileRef.current?.reset();
       }
     } catch {
       setStatusType('error');
       setStatusMsg(dict.forms.states.error_body);
+      turnstileRef.current?.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -704,7 +744,7 @@ export function LeadForm({
               </div>
             )}
 
-            <TurnstileWidget onToken={handleTurnstileToken} onError={handleTurnstileError} />
+            <TurnstileWidget ref={turnstileRef} onToken={handleTurnstileToken} onError={handleTurnstileError} />
             {errors.turnstile && (
               <p role="alert" className="text-xs text-red-400 font-mono">
                 {errors.turnstile}
